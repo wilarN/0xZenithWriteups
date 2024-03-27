@@ -1,0 +1,79 @@
+@import url("fonts/OTF/FantasqueSansMono-Regular.otf");
+
+$main-color: #000000;
+$main-color-light: #333;
+$secondary-color: rgb(0, 221, 255);
+$tertiary-color: #00ff15;
+$quaternary-color: #ff00e1;
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: "Fantasque Sans Mono", monospace;
+}
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-highlight {
+    color: $tertiary-color;
+    text-shadow: 0px 0px 4px $tertiary-color;
+}
+
+#main-highlight2 {
+    color: $quaternary-color;
+    text-shadow: 0px 0px 4px $quaternary-color;
+}
+
+body {
+    background-color: $main-color;
+    width: 75dvw;
+    margin: auto;
+    .main-header {
+        nav {
+            ul {
+                display: flex;
+                justify-content: space-around;
+                list-style: none;
+                padding: 20px;
+                border-bottom: 2px solid $secondary-color;
+                border-radius: 5px;
+                box-shadow: 0 4px 4px -3px $secondary-color;
+
+                li {
+                    a{
+                        text-decoration: none;
+                        color: white;
+                        transition-duration: 0.3s;
+                    }
+
+                    a:hover {
+                        color: $secondary-color;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .main-container {
+        @include flexCenter;
+        color: $secondary-color;
+        text-shadow: 0px 0px 4px $secondary-color;
+        height: 100vh;
+    }
+}
+
+footer {
+    position: static;
+    bottom: 0;
+    width: 75dvw;
+    background: $main-color;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

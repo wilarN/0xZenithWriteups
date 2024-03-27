@@ -1,0 +1,58 @@
+@import url("fonts/OTF/FantasqueSansMono-Regular.otf");
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Fantasque Sans Mono", monospace;
+}
+
+#main-highlight {
+  color: #00ff15;
+  text-shadow: 0px 0px 4px #00ff15;
+}
+
+#main-highlight2 {
+  color: #ff00e1;
+  text-shadow: 0px 0px 4px #ff00e1;
+}
+
+body {
+  background-color: #000000;
+  width: 75dvw;
+  margin: auto;
+}
+body .main-header nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: 20px;
+  border-bottom: 2px solid rgb(0, 221, 255);
+  border-radius: 5px;
+  box-shadow: 0 4px 4px -3px rgb(0, 221, 255);
+}
+body .main-header nav ul li a {
+  text-decoration: none;
+  color: white;
+  transition-duration: 0.3s;
+}
+body .main-header nav ul li a:hover {
+  color: rgb(0, 221, 255);
+}
+body .main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 221, 255);
+  text-shadow: 0px 0px 4px rgb(0, 221, 255);
+  height: 100vh;
+}
+
+footer {
+  position: static;
+  bottom: 0;
+  width: 75dvw;
+  background: #000000;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}/*# sourceMappingURL=style.css.map */
