@@ -13,10 +13,18 @@ $quaternary-color: #ff00e1;
     font-family: "Fantasque Sans Mono", monospace;
 }
 
+:root {
+    --size: 2;
+    --color: rgb(170, 255, 41);
+}
+
 @mixin flexCenter {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.cmd-terminal-container{
+    width: 100%;
 }
 
 #main-highlight {
@@ -27,6 +35,30 @@ $quaternary-color: #ff00e1;
 #main-highlight2 {
     color: $quaternary-color;
     text-shadow: 0px 0px 4px $quaternary-color;
+}
+
+::selection {
+    background: $quaternary-color;
+    color: white;
+}
+
+::moz-selection {
+    background: $quaternary-color;
+    color: white;
+}
+
+#animated-border{
+    padding: 10px 20px;
+    border: 2px solid rgb(28, 28, 77);
+    border-radius: 20px;
+    animation: MovingBorderAnimation 15s linear infinite;
+}
+
+#animated-border-bottom{
+    padding: 10px 20px;
+    border-bottom: 2px solid rgb(28, 28, 77);
+    border-radius: 20px;
+    animation: MovingBorderAnimationBottom 15s linear infinite;
 }
 
 body {
@@ -62,6 +94,7 @@ body {
 
     .main-container {
         @include flexCenter;
+        flex-direction: column;
         color: $secondary-color;
         text-shadow: 0px 0px 4px $secondary-color;
         height: 100vh;
@@ -76,4 +109,55 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+@keyframes MovingBorderAnimation {
+    0% {
+        border: 2px solid $quaternary-color;
+    }
+
+    20% {
+        border: 2px solid complement($quaternary-color);
+    }
+
+    40% {
+        border: 2px solid rgb(0, 247, 0);
+    }
+
+    60% {
+        border: 2px solid  $secondary-color;
+    }
+
+    80% {
+        border: 2px solid  $tertiary-color;
+    }
+
+    100% {
+        border: 2px solid $quaternary-color;
+    }
+}
+@keyframes MovingBorderAnimationBottom {
+    0% {
+        border-bottom: 2px solid $quaternary-color;
+    }
+
+    20% {
+        border-bottom: 2px solid complement($quaternary-color);
+    }
+
+    40% {
+        border-bottom: 2px solid rgb(0, 247, 0);
+    }
+
+    60% {
+        border-bottom: 2px solid  $secondary-color;
+    }
+
+    80% {
+        border-bottom: 2px solid  $tertiary-color;
+    }
+
+    100% {
+        border-bottom: 2px solid $quaternary-color;
+    }
 }

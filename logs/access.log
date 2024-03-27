@@ -1,0 +1,4 @@
+::1 - - [27/Mar/2024:21:02:01 +0000] "GET /writeups HTTP/1.1" 304 - "http://localhost:9999/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [27/Mar/2024:21:10:26 +0000] "GET / HTTP/1.1" 200 6688 "http://localhost:9999/writeups" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [27/Mar/2024:21:12:02 +0000] "GET / HTTP/1.1" 304 - "http://localhost:9999/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+::1 - - [27/Mar/2024:21:15:23 +0000] "GET /writeups HTTP/1.1" 304 - "http://localhost:9999/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"

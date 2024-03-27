@@ -1,0 +1,136 @@
+<script>
+    const banner = `
+██████╗ ██╗  ██╗███████╗███████╗███╗   ██╗██╗████████╗██╗  ██╗
+██╔═████╗╚██╗██╔╝╚══███╔╝██╔════╝████╗  ██║██║╚══██╔══╝██║  ██║
+██║██╔██║ ╚███╔╝   ███╔╝ █████╗  ██╔██╗ ██║██║   ██║   ███████║
+████╔╝██║ ██╔██╗  ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║   ██╔══██║
+╚██████╔╝██╔╝ ██╗███████╗███████╗██║ ╚████║██║   ██║   ██║  ██║
+ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝`;
+
+    // Red, green, blue, yellow, purple, cyan, white
+    const colors = {
+        red: "#ff0000",
+        green: "#00ff00",
+        greenyellow: "#adff2f",
+        blue: "#0000ff",
+        yellow: "#ffff00",
+        purple: "#ff00ff",
+        cyan: "#00ffff",
+        white: "#ffffff"
+    };
+    let isRoot = false;
+
+    const filesInUser = ["user.txt"];
+    const filesInRoot = ["root.txt"];
+    let username = localStorage.getItem('username') || "0xZenith";
+
+    const realDirectories = ["writeups", "about"];
+
+    if (username === "root") {
+        isRoot = true;
+    }
+
+    $('.cmd-terminal-container').terminal({
+        hello: function (what) {
+            this.echo('Hello, ' + what +
+                '. Wellcome to this terminal.');
+        },
+        help: function (...args) {
+            this.echo("Welcome to 0xZenith terminal, here are the available commands:\n");
+            this.echo("color [red, green, greenyellow, blue, yellow, purple, cyan, white] - changes the terminal color");
+            this.echo("whoami - prints the current user");
+            this.echo("help - prints this help message");
+            this.echo("ls - lists the files in the current directory");
+            this.echo("cat [file] - prints the content of a file");
+            this.echo("su - switches to the root user");
+            this.echo("exit - exits the root user");
+        },
+        whoami: function () {
+            if (isRoot) {
+                this.echo("root");
+            } else {
+                this.echo("0xZenith");
+            }
+        },
+        color: function (color) {
+            if (colors[color]) {
+                this.echo("Color changed to " + color);
+                $(':root').css('--color', colors[color]);
+            } else {
+                this.echo("Invalid color");
+            }
+        },
+        ls: function () {
+            // Imitate a file listing command ls
+            if (isRoot) {
+                // Echo without new line
+                this.echo(filesInRoot.concat(filesInUser.concat(realDirectories.map(dir => '/' + dir)).join(" ")).join(" "));
+            } else {
+                this.echo(filesInUser.concat(realDirectories.map(dir => '/' + dir)).join(" "));
+            }
+        },
+        cat: function (file) {
+            if (file === "user.txt") {
+                this.echo("flag{R3M3MB3R_T0_CH4NG3_Y0UR_D3F4ULT_P4SSW0RD}\n Now what about the root flag? :)'");
+            } else if (file === "root.txt") {
+                if (isRoot) {
+                    this.echo("flag{N1c3_J0b_Y0u_F0und_1t!}");
+                    // Print gif
+                    this.echo($('<img src="/img/hackerman.gif" draggable="false">'));
+                } else {
+                    this.echo("cat: " + file + ": No such file or directory");
+                }
+            } else {
+                this.echo("cat: " + file + ": No such file or directory");
+            }
+        },
+        su: function () {
+            // Ask for the root password
+            if (isRoot) {
+                this.echo("You are already root");
+                return;
+            }
+            this.push(function (password) {
+
+                if (password === "password") {
+                    isRoot = true;
+                    this.echo("Welcome root");
+                    // Update the username to "root"
+                    username = "root";
+                    // Restore the prompt with root
+                    localStorage.setItem('username', username);
+                    window.location.reload();
+                } else {
+                    this.echo("su: Authentication failure");
+                }
+                this.pop();
+            }, {
+                prompt: 'Password: ',
+                name: 'password',
+                echo: false
+            });
+        },
+        // Cd to the real directories
+        cd: function (dir) {
+            if (realDirectories.includes(dir)) {
+                this.echo("cd: " + dir);
+                window.location.href = `/${dir}`;
+            } else {
+                this.echo("cd: " + dir + ": No such file or directory");
+            }
+        },
+        exit: function () {
+            if (isRoot) {
+                isRoot = false;
+                username = "0xZenith";
+                localStorage.setItem('username', username);
+                window.location.reload();
+            } else {
+                return;
+            }
+        }
+    }, {
+        greetings: 'Welcome to the 0xZenith terminal \n' + banner + '\nType help to get started\n',
+        prompt: `${username}@10.10.43.243: ~# `
+    });
+</script>

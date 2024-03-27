@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
-    <title>0xZenith - Writeups</title>
-</head>
+<%- include('templates/head', {title: "Home"}) %>
 <body>
     <div class="main-header">
         <nav>
@@ -16,11 +9,9 @@
             </ul>
         </nav>
     </div>
+    <div class="cmd-terminal-container"></div>
     <div class="main-container">
-        <h1>Welcome to <span id='main-highlight'>0xZenith</span> Writeups</h1>
+
     </div>
 </body>
-<footer>
-    <p id='main-highlight2'>&copy; 2024 0xZenith Writeups</p>
-</footer>
-</html>
+<%- include('templates/terminal/cmd') %>
