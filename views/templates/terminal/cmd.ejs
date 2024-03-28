@@ -52,6 +52,13 @@
                 this.echo("0xZenith");
             }
         },
+        login: function(username, password){
+            if(!username || !password){
+                this.echo("login: please supply a username and a password\n login [username] [password]");
+                return;
+            }
+            window.location.href = `/login?username=${username}&password=${password}`;
+        },
         color: function (color) {
             if (colors[color]) {
                 this.echo("Color changed to " + color);
@@ -76,7 +83,7 @@
                 if (isRoot) {
                     this.echo("flag{N1c3_J0b_Y0u_F0und_1t!}");
                     // Print gif
-                    this.echo($('<img src="/img/hackerman.gif" draggable="false">'));
+                    this.echo($('<img src="/img/hackerman.gif" draggable="false">'));l
                 } else {
                     this.echo("cat: " + file + ": No such file or directory");
                 }
@@ -118,6 +125,15 @@
             } else {
                 this.echo("cd: " + dir + ": No such file or directory");
             }
+        },
+        useradd: function (user, password) {
+            // If user or password is empty
+            if (!user || !password) {
+                this.echo("useradd: please supply a username and a password\n useradd [username] [password]");
+                return;
+            }
+            window.location.href = `/createnewuser?user=${user}&password=${password}`;
+            this.echo("useradd: " + user + " added");
         },
         exit: function () {
             if (isRoot) {
