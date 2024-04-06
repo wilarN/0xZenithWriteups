@@ -53,6 +53,25 @@ async function insert_new_blogpost(blog_post) {
     }
 }
 
+async function delete_writeup_by_id(id) {
+    try {
+        await new Promise((resolve, reject) => {
+            db_conn.db.run('DELETE FROM blog WHERE id = ?', [id], (err) => {
+                if (err) {
+                    console.error(err.message);
+                    reject(err);
+                } else {
+                    resolve(true);
+                }
+            });
+        });
+        return true;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+
 async function fetch_post_by_name(title, callback) {
     db_conn.db.serialize(() => {
         db_conn.db.get('SELECT * FROM blog WHERE title = ?', [title], (err, row) => {
@@ -180,4 +199,5 @@ module.exports = {
     login_user,
     fetch_all_writeups,
     fetch_writeup_by_id,
+    delete_writeup_by_id,
 }

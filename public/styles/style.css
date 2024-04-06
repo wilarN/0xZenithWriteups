@@ -68,6 +68,11 @@
   animation: MovingBorderAnimationBottom 15s linear infinite;
 }
 
+#delete-writeup {
+  position: relative;
+  z-index: 10;
+}
+
 #welcomeText {
   font-size: 2rem;
   width: 100%;
@@ -109,6 +114,8 @@ img {
 
 .latest-writeups {
   width: 100%;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .writeup {
@@ -142,7 +149,8 @@ img {
   width: 100%;
   /* Remove max-height to allow the container to expand based on content */
   /* max-height: 90%; */
-  overflow: auto; /* Use auto to only show scrollbar when necessary */
+  overflow: auto;
+  /* Use auto to only show scrollbar when necessary */
   overflow-x: hidden;
   /* Scroll */
   scrollbar-width: thin;
@@ -152,11 +160,14 @@ img {
   box-shadow: 0 0 10px 3px #ff00e1;
   transition-duration: 0.4s;
 }
-.fullview-writeup h2 {
+.fullview-writeup .fullview-writeup-inner {
+  padding: 30px;
+}
+.fullview-writeup .fullview-writeup-inner h2 {
   padding: 20px;
   margin-top: 20px;
 }
-.fullview-writeup p {
+.fullview-writeup .fullview-writeup-inner p {
   padding: 20px;
   margin: 10px;
 }
@@ -524,6 +535,19 @@ body .login form input {
   background: #000000;
   color: white;
   text-align: center;
+  transition-duration: 0.4s;
+}
+body .create-account form input:focus,
+body .login form input:focus {
+  border: 1px solid #ff00e1;
+  /* Assuming $quaternary-color is a variable holding the desired color */
+}
+body .create-account form input[type=submit]:hover,
+body .login form input[type=submit]:hover {
+  border: 1px solid #ff00e1;
+  color: white;
+  scale: 1.1;
+  cursor: pointer;
 }
 body .create-account a,
 body .login a {

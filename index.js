@@ -11,6 +11,7 @@ const { insert_new_blogpost,
     login_user,
     fetch_all_writeups,
     fetch_writeup_by_id,
+    delete_writeup_by_id,
 } = require('./private/db_func.js');
 const { blog_post } = require('./private/blogpost.js');
 
@@ -94,26 +95,40 @@ app.get("/writeups", async (req, res) => {
 });
 
 app.post("/fullview", async (req, res) => {
-    if(!req.session.username){
+    if (!req.session.username) {
         res.redirect("/");
     }
 
     // Retrieve the post_id from the form data
     const post_id = req.body.post_id;
+    const del_post_id = req.body.del_post_id;
+
+    if (del_post_id) {
+        // Delete the post
+        const result = await delete_writeup_by_id(del_post_id);
+        if (result) {
+            console.log(`Post ${del_post_id} deleted successfully`);
+        } else {
+            console.log(`Failed to delete post ${del_post_id}`);
+        }
+    }
 
     // Now you can use the post_id to fetch the details of the selected post from your data source (e.g., database)
     // Perform any necessary operations based on the post_id
-    if(post_id){
+    if (post_id) {
         // Fetch the post information
         const post = await fetch_writeup_by_id(post_id);
 
-        if(post){
-            res.render("fullview.ejs", { post: post });
+        if (post) {
+            res.render("fullview.ejs", {
+                post: post,
+                session: req.session,
+            });
         } else {
             console.log(`Failed to fetch post with id ${post_id}`);
             res.redirect("/writeups");
         }
-    }else{
+    } else {
         res.redirect("/");
     }
 });
@@ -181,10 +196,8 @@ app.get("/terminal", (req, res) => {
 app.post("/signup", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username, password);
     create_new_user(username, password, callback => {
         if (callback) {
-            console.log(callback);
             console.log(`User ${username} created successfully`);
             // Set the session username to the username
             req.session.username = username;

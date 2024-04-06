@@ -2,18 +2,26 @@
 <body>
     <%- include('templates/header') %>
     <div class="main-container">
-        <div class='backhometowriteups'>
-            <a href="/writeups">Back to writeups</a>
-        </div>
         <% if(locals.post) { %>
             <div class="main-fullview-container">
                 <div class="writeup-footer">
+                    <div class='backhometowriteups'>
+                        <a href="/writeups">Back to writeups</a>
+                    </div>
                     <p>By: <%= locals.post.author %></p>
                     <p>Posted on: <%= locals.post.date %></p>
+                    <% if(locals.session.username === locals.post.author) { %>
+                        <form action="/fullview" method="POST">
+                            <input type="hidden" name="del_post_id" value="<%= locals.post.id %>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    <% } %>
                 </div>
                 <div class="fullview-writeup">
-                    <h2><%= locals.post.title %></h2>
-                    <%- locals.post.content.replace(/\n/g, '<br>') %>
+                    <div class="fullview-writeup-inner">
+                        <h2><%= locals.post.title %></h2>
+                        <%- locals.post.content.replace(/\n/g, '<br>') %>
+                </div>
                 </div>
             </div>
         <% } %>

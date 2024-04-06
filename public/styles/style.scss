@@ -77,6 +77,11 @@ $quinary-color: #ff5e00;
     animation: MovingBorderAnimationBottom 15s linear infinite;
 }
 
+#delete-writeup {
+    position: relative;
+    z-index: 10;
+}
+
 #welcomeText {
     font-size: 2rem;
     width: 100%;
@@ -97,7 +102,7 @@ img {
     height: auto;
 }
 
-.all-writeup-wrapper{
+.all-writeup-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -107,18 +112,21 @@ img {
     margin-top: 20px;
     width: 100%;
     overflow: auto;
-    form{
+
+    form {
         @include flexCenter;
         flex-direction: column;
         width: 100%;
     }
 }
 
-.latest-writeups{
-    width: 100%
+.latest-writeups {
+    width: 100%;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
-.writeup{
+.writeup {
     @include flexCenter;
     flex-direction: column;
     color: $quinary-color;
@@ -129,15 +137,16 @@ img {
     border-radius: 10px;
     transition-duration: 0.4s;
 
-    h2{
+    h2 {
         padding: 20px;
     }
 }
 
-.main-fullview-container{
+.main-fullview-container {
     max-height: 80%;
     width: 100%;
 }
+
 .fullview-writeup {
     @include flexCenter;
     flex-direction: column;
@@ -145,7 +154,8 @@ img {
     width: 100%;
     /* Remove max-height to allow the container to expand based on content */
     /* max-height: 90%; */
-    overflow: auto; /* Use auto to only show scrollbar when necessary */
+    overflow: auto;
+    /* Use auto to only show scrollbar when necessary */
     overflow-x: hidden;
     /* Scroll */
     scrollbar-width: thin;
@@ -156,18 +166,23 @@ img {
     box-shadow: 0 0 10px 3px $quaternary-color;
     transition-duration: 0.4s;
 
-    h2 {
-        padding: 20px;
-        margin-top: 20px;
+    .fullview-writeup-inner {
+
+        padding: 30px;
+        h2 {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        p {
+            padding: 20px;
+            margin: 10px
+        }
     }
 
-    p {
-        padding: 20px;
-        margin: 10px
-    }
 }
 
-.backhometowriteups{
+.backhometowriteups {
     @include flexCenter;
     flex-direction: column;
     color: $quinary-color;
@@ -175,10 +190,10 @@ img {
     width: 90%;
     margin: 10px;
     border-radius: 10px;
-    justify-content: left;  
+    justify-content: left;
     align-items: start;
 
-    a{
+    a {
         padding: 20px;
         color: $quaternary-color;
         text-shadow: 0px 0px 4px $quaternary-color;
@@ -186,7 +201,7 @@ img {
         border: 1px solid $quaternary-color;
         border-radius: 5px;
 
-        &:hover{
+        &:hover {
             background: $quaternary-color;
             color: white;
             scale: 1.1;
@@ -194,13 +209,13 @@ img {
     }
 }
 
-.writeup:hover{
+.writeup:hover {
     border: 2px solid $quaternary-color;
     cursor: pointer;
     scale: 1.05;
 }
 
-.writeup-footer{
+.writeup-footer {
     color: $quaternary-color;
     text-shadow: 0px 0px 4px $quaternary-color;
     text-align: center;
@@ -396,6 +411,7 @@ body {
                                     color: $quinary-color;
                                     transition-duration: 0.3s;
                                     text-shadow: 0px 0px 4px $quinary-color;
+
                                     &:hover {
                                         border: 2px solid $quaternary-color;
                                         color: white;
@@ -570,6 +586,21 @@ body {
                 background: $main-color;
                 color: white;
                 text-align: center;
+                transition-duration: 0.4s;
+            }
+
+            input:focus {
+                border: 1px solid $quaternary-color;
+                /* Assuming $quaternary-color is a variable holding the desired color */
+            }
+
+            input[type="submit"] {
+                &:hover {
+                    border: 1px solid $quaternary-color;
+                    color: white;
+                    scale: 1.1;
+                    cursor: pointer;
+                }
             }
         }
 
