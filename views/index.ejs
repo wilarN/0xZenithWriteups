@@ -1,16 +1,7 @@
 <%- include('templates/head', {title: "Home" }) %>
 
     <body>
-        <div class="main-header">
-            <nav>
-                <ul>
-                    <li><a href="/">/home</a></li>
-                    <li><a href="/writeups">/writeups</a></li>
-                    <li><a href="/about">/about</a></li>
-                    <li><a href="/terminal">/terminal</a></li>
-                </ul>
-            </nav>
-        </div>
+        <%- include('templates/header') %>
         <div class="main-container">
             <% if(locals.session){ %>
                 <!-- LOGGED IN -->
@@ -26,11 +17,11 @@
                                     topics.
                                 </p><br>
                                 <h3>Feel free to browse around and check out the writeups!</h3>
+                                <a href="/writeups" style='color: white;'>Check out the already existing writeups here!</a>
                                 <br><br><br>
                                 <div class="latest-writeups">
                                     <h2>Latest Writeups:</h2>
-                                    <ul>
-                                    </ul>
+                                    <%- include("templates/writeup.ejs") %>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +30,7 @@
 
 
                 <% } else { %>
-                    <% if(!locals.loginMode) { %>
+                    <% if(!locals.login_mode) { %>
                         <!-- SIGNUP -->
                         <div class="create-account">
                             <h1>Sign Up</h1>
@@ -53,11 +44,11 @@
                                 <span id='conf-pass-match'></span>
                                 <input type="submit" value="Sign Up">
 
-                                <% if(locals.errMSG) { %>
-                                    <p id='errMSG'></p>
+                                <% if(locals.err_msg) { %>
+                                    <p id='err_msg'></p>
                                     <script>
-                                        document.getElementById('errMSG').innerText = "<%= locals.errMSG %>";
-                                        document.getElementById('errMSG').style.color = 'red';
+                                        document.getElementById('err_msg').innerText = "<%= locals.err_msg %>";
+                                        document.getElementById('err_msg').style.color = 'red';
                                     </script>
                                     <% } %>
 
@@ -75,11 +66,11 @@
                                         required>
                                     <input type="submit" value="Login">
 
-                                    <% if(locals.errMSG) { %>
-                                        <p id='errMSG'></p>
+                                    <% if(locals.err_msg) { %>
+                                        <p id='err_msg'></p>
                                         <script>
-                                            document.getElementById('errMSG').innerText = "<%= locals.errMSG %>";
-                                            document.getElementById('errMSG').style.color = 'red';
+                                            document.getElementById('err_msg').innerText = "<%= locals.err_msg %>";
+                                            document.getElementById('err_msg').style.color = 'red';
                                         </script>
                                         <% } %>
 

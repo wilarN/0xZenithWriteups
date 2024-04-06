@@ -93,6 +93,44 @@ a {
     transition-duration: 0.3s;
 }
 
+img {
+    height: auto;
+}
+
+.all-writeup-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    scroll-behavior: smooth;
+    margin-top: 20px;
+    overflow: auto;
+}
+
+.writeup{
+    @include flexCenter;
+    flex-direction: column;
+    color: $quinary-color;
+    text-shadow: 0px 0px 4px $quinary-color;
+    margin: 20px;
+    padding: 80px 170px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px $quinary-color;
+    transition-duration: 0.4s;
+    
+}
+
+.writeup:hover{
+    box-shadow: 0 0 5px 5px $quaternary-color;
+    cursor: pointer;
+    scale: 1.1;
+}
+
+.writeup-footer{
+    color: $quinary-color;
+    text-shadow: 0px 0px 4px $quinary-color;
+    text-align: center;
+}
 
 .not-allowed-div {
     background: $main-color;
@@ -119,6 +157,10 @@ body {
     margin: auto;
 
     .main-header {
+        position: fixed;
+        width: 75dvw;
+        background: rgba(8, 8, 8, 0.685);
+
         nav {
             ul {
                 display: flex;
@@ -126,6 +168,8 @@ body {
                 list-style: none;
                 padding: 20px;
                 border-bottom: 2px solid $secondary-color;
+                border-left: 2px solid $secondary-color;
+                border-right: 2px solid $secondary-color;
                 border-radius: 5px;
                 box-shadow: 0 4px 4px -3px $secondary-color;
 
@@ -149,7 +193,6 @@ body {
         @include flexCenter;
         flex-direction: column;
         color: $secondary-color;
-        text-shadow: 0px 0px 4px $secondary-color;
         height: 100vh;
 
         // Main content when user is logged in
@@ -177,29 +220,35 @@ body {
 
                     .tab {
                         overflow: hidden;
-                        border: 1px solid #ccc;
-                        background-color: #f1f1f1;
+                        background-color: darken($main-color-light, 5%);
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+
                     }
 
                     /* Style the buttons that are used to open the tab content */
                     .tab button {
                         background-color: inherit;
                         float: left;
-                        border: none;
+                        width: 100%;
                         outline: none;
+                        color: white;
                         cursor: pointer;
                         padding: 14px 16px;
                         transition: 0.3s;
+                        border: 1px solid $quinary-color;
+
                     }
 
                     /* Change background color of buttons on hover */
                     .tab button:hover {
-                        background-color: #ddd;
+                        background-color: $quinary-color;
                     }
 
                     /* Create an active/current tablink class */
                     .tab button.active {
-                        background-color: #ccc;
+                        background-color: $quinary-color;
                     }
 
                     .inner-inner-inner {
@@ -229,7 +278,22 @@ body {
                                 border: 1px solid $secondary-color;
                                 background: $main-color;
                                 color: white;
-                                text-align: center;
+                                text-align: left;
+                            }
+
+                            textarea {
+                                width: 80%;
+                                padding: 10px;
+                                margin: 10px;
+                                border-radius: 5px;
+                                border: 1px solid $secondary-color;
+                                background: $main-color;
+                                color: white;
+                                text-align: left;
+                                max-width: 80%;
+                                min-width: 30%;
+                                min-height: 20%;
+                                max-height: 700px;
                             }
 
                             button {
@@ -245,15 +309,149 @@ body {
                                 background: $quinary-color;
                                 color: white;
                             }
+
+                            form {
+                                @include flexCenter;
+                                flex-direction: column;
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    .main-container-terminal {
+        @include flexCenter;
+        flex-direction: column;
+        color: $secondary-color;
+        height: 100vh;
+        justify-content: start;
+
+        // Main content when user is logged in
+        .main-content-container {
+            display: flex;
+            justify-content: start;
+            align-self: flex-start;
+            // Still make the text be written from left to right
+            writing-mode: horizontal-tb;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+
+            .main-cont-inner-wrapper {
+                margin-top: 80px;
+                background: $main-color-light;
+                border-radius: 5px;
+                box-shadow: 0 0 10px 3px $secondary-color;
+
+                .inner-inner {
+                    margin: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    background: darken($color: $main-color-light, $amount: 10);
+
+                    .tab {
+                        overflow: hidden;
+                        background-color: darken($main-color-light, 5%);
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+
+                    }
+
+                    /* Style the buttons that are used to open the tab content */
+                    .tab button {
+                        background-color: inherit;
+                        float: left;
+                        width: 100%;
+                        outline: none;
+                        color: white;
+                        cursor: pointer;
+                        padding: 14px 16px;
+                        transition: 0.3s;
+                        border: 1px solid $quinary-color;
+
+                    }
+
+                    /* Change background color of buttons on hover */
+                    .tab button:hover {
+                        background-color: $quinary-color;
+                    }
+
+                    /* Create an active/current tablink class */
+                    .tab button.active {
+                        background-color: $quinary-color;
+                    }
+
+                    .inner-inner-inner {
+                        margin: 50px;
+                        display: flex;
+                        flex-direction: column;
+
+                        .tabcontent {
+                            display: none;
+                            padding: 6px 12px;
+                            border-top: none;
+                            animation: fadeEffect 1s;
+                        }
 
 
 
+                        .create-new-post {
+                            display: flex;
+                            flex-direction: column;
+                            margin: 20px;
 
+                            input {
+                                width: 80%;
+                                padding: 10px;
+                                margin: 10px;
+                                border-radius: 5px;
+                                border: 1px solid $secondary-color;
+                                background: $main-color;
+                                color: white;
+                                text-align: left;
+                            }
+
+                            textarea {
+                                width: 80%;
+                                padding: 10px;
+                                margin: 10px;
+                                border-radius: 5px;
+                                border: 1px solid $secondary-color;
+                                background: $main-color;
+                                color: white;
+                                text-align: left;
+                                max-width: 80%;
+                                min-width: 30%;
+                                min-height: 20%;
+                                max-height: 700px;
+                            }
+
+                            button {
+                                padding: 10px 20px;
+                                border-radius: 10px;
+                                border: 2px solid $quinary-color;
+                                color: $quinary-color;
+                                transition-duration: 0.3s;
+                                text-shadow: 0px 0px 4px $quinary-color;
+                            }
+
+                            button:hover {
+                                background: $quinary-color;
+                                color: white;
+                            }
+
+                            form {
+                                @include flexCenter;
+                                flex-direction: column;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     .create-account,
@@ -307,6 +505,7 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+    margin-top: 50px;
 
     #logoutForm {
         @include flexCenter;
@@ -328,6 +527,70 @@ footer {
             scale: 1.1;
             cursor: pointer;
         }
+    }
+}
+
+// Other screen sizes
+@media screen and (max-width: 1200px) {
+    body {
+        width: 100vw;
+    }
+
+    .main-header {
+        position: fixed;
+        width: 100vw;
+    }
+
+    .main-container {
+        .main-content-container {
+            .main-cont-inner-wrapper {
+                .inner-inner {
+                    .inner-inner-inner {
+                        .create-new-post {
+                            input {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .create-account,
+        .login {
+            width: 80vw;
+
+            form {
+                input {
+                    width: 100%;
+                }
+
+                text-align: center;
+
+                p {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+
+    .create-account,
+    .login {
+        width: 80vw;
+    }
+
+    footer {
+        width: 100vw;
+        text-align: center;
+    }
+
+    .not-allowed-div {
+        width: 80vw;
+        text-align: center;
+    }
+
+    #terminal-li {
+        display: none;
     }
 }
 

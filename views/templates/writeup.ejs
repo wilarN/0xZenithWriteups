@@ -1,0 +1,21 @@
+<% if(locals.writeups) { %>
+    <div class='all-writeup-wrapper'>
+    <% for(let i=0; i < locals.writeups.length; i++) { %>
+        <div class="writeup">
+            <h2>
+                <%= locals.writeups[i].title %>
+            </h2>
+            <p>
+                <%= locals.writeups[i].content %>
+            </p>
+            <div class="writeup-footer">
+                <p>By: <%= locals.writeups[i].author %>
+                </p>
+                <p>Posted on: <%= locals.writeups[i].date %>
+                </p>
+            </div>
+        </div>
+        <% } %>
+            <% } else { %>
+                <h2>No writeups found!</h2>
+                <% } %>

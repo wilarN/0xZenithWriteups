@@ -19,24 +19,41 @@ function db_validation() {
         }
         console.log('Connected to the database.');
         db.serialize(() => {
-            db.run('CREATE TABLE IF NOT EXISTS blog (id INTEGER PRIMARY KEY, title TEXT, content TEXT)');
-            db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)');
+            db.run('CREATE TABLE IF NOT EXISTS blog (id INTEGER PRIMARY KEY, title TEXT, content TEXT, author TEXT)');
+            db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
         });
     });
     return db;
 }
 
-function insert_new_blogpost(blog_post) {
-    if (fetch_post_by_name(blog_post.title)) {
-        console.log("Post with this title already exists");
-        return;
+async function insert_new_blogpost(blog_post) {
+    try {
+        const row = await fetch_post_by_name(blog_post.title);
+
+        if (row) {
+            console.log("Post with this title already exists");
+            return false;
+        } else {
+            console.log("Inserting new blog post");
+            await new Promise((resolve, reject) => { // Promise to prevent error even though it worked.
+                db.run('INSERT INTO blog (title, content, author) VALUES (?, ?, ?)', [blog_post.title, blog_post.content, blog_post.author], function (err) {
+                    if (err) {
+                        console.error(err.message);
+                        reject(err);
+                    } else {
+                        resolve(true);
+                    }
+                });
+            });
+            return true;
+        }
+    } catch (err) {
+        console.error(err);
+        return false;
     }
-    db_conn.db.serialize(() => {
-        db_conn.db.run('INSERT INTO blog (title, content) VALUES (?, ?)', [blog_post.title, blog_post.content]);
-    });
 }
 
-function fetch_post_by_name(title) {
+async function fetch_post_by_name(title, callback) {
     db_conn.db.serialize(() => {
         db_conn.db.get('SELECT * FROM blog WHERE title = ?', [title], (err, row) => {
             if (err) {
@@ -71,31 +88,76 @@ function login_user(username, password, callback) {
 }
 
 function create_new_user(username, password, callback) {
-    // Attempt to create a new user in db if it doesn't exist
+    // Check if the user already exists
+    user_exists(username, (exists) => {
+        if (exists) {
+            console.log(`User ${username} already exists, cannot create a new user with the same username`);
+            callback(false);
+        } else {
+            // Hash password with bcrypt
+            const salt = bcrypt.genSaltSync(10);
+            password = bcrypt.hashSync(password, salt);
 
-    // Hash password with bcrypt
-    const salt = bcrypt.genSaltSync(10);
-    password = bcrypt.hashSync(password, salt, (err) => {
-        if (err) {
-            console.error(err.message);
+            // Insert the new user into the db
+            db_conn.db.serialize(() => {
+                db_conn.db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
+                    if (err) {
+                        console.error(err.message);
+                        callback(false); // Call the callback with false if an error occurred
+                    } else {
+                        callback(true); // Call the callback with true if the operation was successful
+                    }
+                });
+            });
         }
     });
+}
 
-    // Insert the new user into the db
+async function user_exists(username, callback) {
     db_conn.db.serialize(() => {
-        db_conn.db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
+        db_conn.db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
             if (err) {
                 console.error(err.message);
-                callback(false); // Call the callback with false if an error occurred
+                callback(false);
+            }
+            if (row) {
+                console.log(`User ${username} already exists`);
+                callback(true);
             } else {
-                callback(true); // Call the callback with true if the operation was successful
+                console.log(`User ${username} does not exist`);
+                callback(false);
             }
         });
     });
+}
+
+async function fetch_all_writeups() {
+    try {
+        const all_posts = await new Promise((resolve, reject) => {
+            db_conn.db.all('SELECT * FROM blog', (err, rows) => {
+                if (err) {
+                    console.error(err.message);
+                    reject(err);
+
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+        if(all_posts){
+            return all_posts;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
 }
 
 module.exports = {
     insert_new_blogpost,
     create_new_user,
     login_user,
+    fetch_all_writeups,
 }

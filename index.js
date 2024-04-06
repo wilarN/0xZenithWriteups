@@ -4,10 +4,12 @@ const BodyParser = require('body-parser');
 const stream = require('stream');
 const fs = require('fs');
 const session = require('express-session');
+const rateLimit = require('express-rate-limit');
 const { Writable } = stream;
 const { insert_new_blogpost,
     create_new_user,
     login_user,
+    fetch_all_writeups,
 } = require('./private/db_func.js');
 const { blog_post } = require('./private/blogpost.js');
 
@@ -28,35 +30,62 @@ app.use(session
     ({
         secret: 'secret',
         resave: true,
-        saveUninitialized: true,
+        save_uninitialized: true,
         username: ''
     }));
 
+// Rate limiter
+const limiter = rateLimit({
+    window_ms: 15 * 60 * 1000, // 15 min
+    limit: 100, // limit each IP to 100 requests per window_ms
+    standard_headers: true,
+    legacy_headers: false,
+})
+
+app.use(limiter);
 
 // Create a write stream (append mode) to the log file
 if (!fs.existsSync('./logs')) {
     fs.mkdirSync('./logs');
 }
-const logStream = fs.createWriteStream('./logs/access.log', { flags: 'a' });
+const log_stream = fs.createWriteStream('./logs/access.log', { flags: 'a' });
 
 // Use Morgan middleware with the write stream
-app.use(Morgan('combined', { stream: logStream }));
+app.use(Morgan('combined', { stream: log_stream }));
 
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     // If the user is logged in, render the index page with the session data
     if (req.session.username) {
-        res.render('index.ejs', { session: req.session });
+
+        // Writeups
+        const all_writeups = await fetch_all_writeups();
+        if(all_writeups){
+            res.render('index.ejs', { session: req.session, writeups: all_writeups });
+        }else{
+            res.render('index.ejs', { session: req.session });
+        }
     } else {
         res.render('index.ejs');
     }
 });
 
-app.get("/writeups", (req, res) => {
+app.get("/writeups", async (req, res) => {
     // Render the writeups page
     // If session is active, render the page with the session data
     if (req.session.username) {
-        res.render("writeups.ejs", { session: req.session });
+        // Fetch potential writeups
+        const writeups = await fetch_all_writeups();
+        if (writeups === false) {
+            console.log("Failed to fetch writeups or no writeups found");
+            res.render("writeups.ejs", { session: req.session });
+        } else {
+            res.render("writeups.ejs", {
+                session: req.session,
+                writeups: writeups
+            });
+        }
+        // Render page
     } else {
         // Otherwise just the default page with the signup/login message
         res.render("writeups.ejs");
@@ -79,8 +108,8 @@ app.post("/login", (req, res) => {
             // Send user to app.get("/") if login fails
             res.render("index.ejs",
                 {
-                    errMSG: "Invalid username or password",
-                    loginMode: true
+                    err_msg: "Invalid username or password",
+                    login_mode: true
                 });
         }
     });
@@ -90,7 +119,7 @@ app.get("/usrLogin", (req, res) => {
     // User loginpage
     res.render("index.ejs",
         {
-            loginMode: true
+            login_mode: true
         });
 });
 
@@ -98,7 +127,7 @@ app.get("/usrSignup", (req, res) => {
     // User signup page
     res.render("index.ejs",
         {
-            loginMode: false
+            login_mode: false
         });
 });
 
@@ -129,27 +158,55 @@ app.post("/signup", (req, res) => {
     console.log(username, password);
     create_new_user(username, password, callback => {
         if (callback) {
+            console.log(callback);
             console.log(`User ${username} created successfully`);
             // Set the session username to the username
             req.session.username = username;
             // Send user to app.get("/") if login is successful
             res.redirect("/");
         } else {
-            // Send user to signup page with errMsg
+            // Send user to signup page with err_msg
             res.render("index.ejs",
                 {
-                    errMSG: "Either the username is already taken, or the password is invalid. Please try again.",
-                    loginMode: false
+                    err_msg: "Either the username is already taken, or the password is invalid. Please try again.",
+                    login_mode: false
                 });
             console.log(`User ${username} attempted to be created but already exists`);
         }
     });
 });
 
+app.post("/createWriteup", async (req, res) => {
+    if (!req.session.username) {
+        res.redirect("/");
+    }
+    const title = req.body.title;
+    const content = req.body.content;
+    const author = req.session.username;
+
+    new_post = new blog_post(title, content, author);
+    try {
+        const result = await insert_new_blogpost(new blog_post(title, content, author));
+        if (result) {
+            console.log(`Blog post ${title} created successfully by ${author}`);
+        } else {
+            console.log(`Failed to create blog post ${title}`);
+        }
+    } catch (err) {
+        console.error("Error creating blog post:", err);
+    }
+
+    res.redirect("/writeups");
+});
+
 app.post("/logout", (req, res) => {
     // Destroy the session
     req.session.destroy();
     res.render("index.ejs");
+});
+
+app.get("/logout", (req, res) => {
+    res.redirect("/");
 });
 
 app.listen(PORT, () => {
