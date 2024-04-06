@@ -19,7 +19,7 @@ function db_validation() {
         }
         console.log('Connected to the database.');
         db.serialize(() => {
-            db.run('CREATE TABLE IF NOT EXISTS blog (id INTEGER PRIMARY KEY, title TEXT, content TEXT, author TEXT)');
+            db.run('CREATE TABLE IF NOT EXISTS blog (id INTEGER PRIMARY KEY, title TEXT, content TEXT, author TEXT, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
             db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
         });
     });
@@ -155,9 +155,29 @@ async function fetch_all_writeups() {
     }
 }
 
+async function fetch_writeup_by_id(id) {
+    try {
+        const post = await new Promise((resolve, reject) => {
+            db_conn.db.get('SELECT * FROM blog WHERE id = ?', [id], (err, row) => {
+                if (err) {
+                    console.error(err.message);
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+        return post;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+
 module.exports = {
     insert_new_blogpost,
     create_new_user,
     login_user,
     fetch_all_writeups,
+    fetch_writeup_by_id,
 }

@@ -1,21 +1,70 @@
 <% if(locals.writeups) { %>
     <div class='all-writeup-wrapper'>
-    <% for(let i=0; i < locals.writeups.length; i++) { %>
-        <div class="writeup">
-            <h2>
-                <%= locals.writeups[i].title %>
-            </h2>
-            <p>
-                <%= locals.writeups[i].content %>
-            </p>
-            <div class="writeup-footer">
-                <p>By: <%= locals.writeups[i].author %>
-                </p>
-                <p>Posted on: <%= locals.writeups[i].date %>
-                </p>
-            </div>
-        </div>
-        <% } %>
-            <% } else { %>
-                <h2>No writeups found!</h2>
+        <% if(!locals.full_display_mode) { %>
+            <form action="/fullview" method='POST'>
+                <% for(let i=0; i < locals.writeups.length; i++) { %>
+                    <div class="writeup" data-post_id="<%= locals.writeups[i].id %>">
+                        <!-- Hidden input field to store post ID -->
+                        <input type="hidden" name="post_id" value="<%= locals.writeups[i].id %>">
+                        <h2><%= locals.writeups[i].title %></h2><br>
+                        <div class="writeup-footer">
+                            <p>By: <%= locals.writeups[i].author %></p>
+                            <p>Posted on: <%= locals.writeups[i].date %></p>
+                        </div>
+                    </div>
                 <% } %>
+            </form>
+        <% } else { %>
+            <!-- Full display version -->
+            <div class='all-writeup-wrapper'>
+                <% for(let i=0; i < locals.writeups.length; i++) { %>
+                    <div class="writeup-full">
+                        <h2><%= locals.writeups[i].title %></h2><br>
+                        <p><%= locals.writeups[i].content %></p>
+                        <div class="writeup-footer">
+                            <p>By: <%= locals.writeups[i].author %></p>
+                            <p>Posted on: <%= locals.writeups[i].date %></p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        <% } %>
+    </div>
+<% } else { %>
+    <h2>No writeups found!</h2>
+<% } %>
+
+<script>
+    
+    // Select all elements with the class writeup
+    const writeups = document.querySelectorAll('.writeup');
+
+    // Add click event listener to each writeup
+    writeups.forEach(writeup => {
+        writeup.addEventListener('click', function() {
+
+            // Find the post ID stored in the data attribute
+            const post_id = writeup.getAttribute('data-post_id');
+
+            // Create a form element
+            const form = document.createElement('form');
+            form.setAttribute('action', '/fullview');
+            form.setAttribute('method', 'POST');
+
+            // Create a hidden input field to store post ID
+            const post_idInput = document.createElement('input');
+            post_idInput.setAttribute('type', 'hidden');
+            post_idInput.setAttribute('name', 'post_id');
+            post_idInput.setAttribute('value', post_id);
+
+            // Append the input field to the form
+            form.appendChild(post_idInput);
+
+            // Append the form to the document body
+            document.body.appendChild(form);
+
+            // Submit the form
+            form.submit();
+        });
+    });
+</script>

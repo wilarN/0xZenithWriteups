@@ -101,10 +101,21 @@ img {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     scroll-behavior: smooth;
     margin-top: 20px;
+    width: 100%;
     overflow: auto;
+    form{
+        @include flexCenter;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.latest-writeups{
+    width: 100%
 }
 
 .writeup{
@@ -112,24 +123,88 @@ img {
     flex-direction: column;
     color: $quinary-color;
     text-shadow: 0px 0px 4px $quinary-color;
-    margin: 20px;
-    padding: 80px 170px;
+    width: 90%;
+    margin: 10px;
+    border: 2px solid $quinary-color;
     border-radius: 10px;
-    box-shadow: 0 0 10px 3px $quinary-color;
     transition-duration: 0.4s;
-    
+
+    h2{
+        padding: 20px;
+    }
+}
+
+.main-fullview-container{
+    max-height: 80%;
+    width: 100%;
+}
+.fullview-writeup {
+    @include flexCenter;
+    flex-direction: column;
+    color: $quinary-color;
+    width: 100%;
+    /* Remove max-height to allow the container to expand based on content */
+    /* max-height: 90%; */
+    overflow: auto; /* Use auto to only show scrollbar when necessary */
+    overflow-x: hidden;
+    /* Scroll */
+    scrollbar-width: thin;
+    scrollbar-color: $quaternary-color $main-color;
+
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px $quaternary-color;
+    transition-duration: 0.4s;
+
+    h2 {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    p {
+        padding: 20px;
+        margin: 10px
+    }
+}
+
+.backhometowriteups{
+    @include flexCenter;
+    flex-direction: column;
+    color: $quinary-color;
+    text-shadow: 0px 0px 4px $quaternary-color;
+    width: 90%;
+    margin: 10px;
+    border-radius: 10px;
+    justify-content: left;  
+    align-items: start;
+
+    a{
+        padding: 20px;
+        color: $quaternary-color;
+        text-shadow: 0px 0px 4px $quaternary-color;
+        transition-duration: 0.3s;
+        border: 1px solid $quaternary-color;
+        border-radius: 5px;
+
+        &:hover{
+            background: $quaternary-color;
+            color: white;
+            scale: 1.1;
+        }
+    }
 }
 
 .writeup:hover{
-    box-shadow: 0 0 5px 5px $quaternary-color;
+    border: 2px solid $quaternary-color;
     cursor: pointer;
-    scale: 1.1;
+    scale: 1.05;
 }
 
 .writeup-footer{
-    color: $quinary-color;
-    text-shadow: 0px 0px 4px $quinary-color;
+    color: $quaternary-color;
+    text-shadow: 0px 0px 4px $quaternary-color;
     text-align: center;
+    padding: 10px;
 }
 
 .not-allowed-div {
@@ -313,6 +388,21 @@ body {
                             form {
                                 @include flexCenter;
                                 flex-direction: column;
+
+                                input[type="submit"] {
+                                    padding: 10px 20px;
+                                    width: 10%;
+                                    border: 2px solid $quinary-color;
+                                    color: $quinary-color;
+                                    transition-duration: 0.3s;
+                                    text-shadow: 0px 0px 4px $quinary-color;
+                                    &:hover {
+                                        border: 2px solid $quaternary-color;
+                                        color: white;
+                                        scale: 1.1;
+                                        cursor: pointer;
+                                    }
+                                }
                             }
                         }
                     }
@@ -498,10 +588,9 @@ body {
 }
 
 footer {
-    position: static;
+    position: fixed;
     bottom: 0;
     width: 75dvw;
-    background: $main-color;
     color: white;
     text-align: center;
     padding: 10px;

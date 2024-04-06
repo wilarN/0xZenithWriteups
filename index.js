@@ -10,6 +10,7 @@ const { insert_new_blogpost,
     create_new_user,
     login_user,
     fetch_all_writeups,
+    fetch_writeup_by_id,
 } = require('./private/db_func.js');
 const { blog_post } = require('./private/blogpost.js');
 
@@ -60,9 +61,9 @@ app.get('/', async (req, res) => {
 
         // Writeups
         const all_writeups = await fetch_all_writeups();
-        if(all_writeups){
+        if (all_writeups) {
             res.render('index.ejs', { session: req.session, writeups: all_writeups });
-        }else{
+        } else {
             res.render('index.ejs', { session: req.session });
         }
     } else {
@@ -82,13 +83,38 @@ app.get("/writeups", async (req, res) => {
         } else {
             res.render("writeups.ejs", {
                 session: req.session,
-                writeups: writeups
+                writeups: writeups,
             });
         }
         // Render page
     } else {
         // Otherwise just the default page with the signup/login message
         res.render("writeups.ejs");
+    }
+});
+
+app.post("/fullview", async (req, res) => {
+    if(!req.session.username){
+        res.redirect("/");
+    }
+
+    // Retrieve the post_id from the form data
+    const post_id = req.body.post_id;
+
+    // Now you can use the post_id to fetch the details of the selected post from your data source (e.g., database)
+    // Perform any necessary operations based on the post_id
+    if(post_id){
+        // Fetch the post information
+        const post = await fetch_writeup_by_id(post_id);
+
+        if(post){
+            res.render("fullview.ejs", { post: post });
+        } else {
+            console.log(`Failed to fetch post with id ${post_id}`);
+            res.redirect("/writeups");
+        }
+    }else{
+        res.redirect("/");
     }
 });
 
@@ -207,6 +233,11 @@ app.post("/logout", (req, res) => {
 
 app.get("/logout", (req, res) => {
     res.redirect("/");
+});
+
+// All other routes
+app.get('*', (req, res) => {
+    res.redirect('/');
 });
 
 app.listen(PORT, () => {

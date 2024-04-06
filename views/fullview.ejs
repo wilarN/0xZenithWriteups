@@ -1,0 +1,21 @@
+<%- include('templates/head', {title: "Writeups" }) %>
+<body>
+    <%- include('templates/header') %>
+    <div class="main-container">
+        <div class='backhometowriteups'>
+            <a href="/writeups">Back to writeups</a>
+        </div>
+        <% if(locals.post) { %>
+            <div class="main-fullview-container">
+                <div class="writeup-footer">
+                    <p>By: <%= locals.post.author %></p>
+                    <p>Posted on: <%= locals.post.date %></p>
+                </div>
+                <div class="fullview-writeup">
+                    <h2><%= locals.post.title %></h2>
+                    <%- locals.post.content.replace(/\n/g, '<br>') %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <%- include('templates/footer.ejs') %>
