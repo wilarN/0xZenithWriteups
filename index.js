@@ -14,8 +14,10 @@ const { blog_post } = require('./private/blogpost.js');
 const app = Express();
 const PORT = 9999;
 
-BodyParser.urlencoded({ extended: true });
+// Body parser
+app.use(BodyParser.urlencoded({ extended: true }));
 
+// Morgan
 app.use(Morgan('dev'));
 app.set('view engine', 'ejs');
 app.use(Express.static('public'));
@@ -42,32 +44,61 @@ app.use(Morgan('combined', { stream: logStream }));
 
 
 app.get('/', (req, res) => {
-    // Morgan log
-    res.render("index.ejs");
+    // If the user is logged in, render the index page with the session data
+    if (req.session.username) {
+        res.render('index.ejs', { session: req.session });
+    } else {
+        res.render('index.ejs');
+    }
 });
 
 app.get("/writeups", (req, res) => {
-    res.render("writeups.ejs");
+    // Render the writeups page
+    // If session is active, render the page with the session data
+    if (req.session.username) {
+        res.render("writeups.ejs", { session: req.session });
+    } else {
+        // Otherwise just the default page with the signup/login message
+        res.render("writeups.ejs");
+    }
 });
 
-app.get("/login", (req, res) => {
-    const query = req.query;
-    const username = query.user;
-    const password = query.password;
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
     login_user(username, password, callback => {
         if (callback) {
-            res.send("User logged in successfully");
             console.log(`User ${username} logged in successfully`);
-        } else {
-            res.send("User not found");
-            console.log(`User ${username} not found`);
+            // Set the session username to the username
+            req.session.username = username;
+            // Send user to app.get("/") if login is successful
+            console.log(req.session);
+            res.redirect("/");
+        }
+        else {
+            // Send user to app.get("/") if login fails
+            res.render("index.ejs",
+                {
+                    errMSG: "Invalid username or password",
+                    loginMode: true
+                });
         }
     });
-    // Set express session
-    req.session.username = username;
+});
+
+app.get("/usrLogin", (req, res) => {
+    // User loginpage
     res.render("index.ejs",
         {
-            username: req.session.username
+            loginMode: true
+        });
+});
+
+app.get("/usrSignup", (req, res) => {
+    // User signup page
+    res.render("index.ejs",
+        {
+            loginMode: false
         });
 });
 
@@ -88,6 +119,38 @@ app.get("/createnewuser", (req, res) => {
     });
 });
 
+app.get("/terminal", (req, res) => {
+    res.render("terminal.ejs");
+});
+
+app.post("/signup", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    console.log(username, password);
+    create_new_user(username, password, callback => {
+        if (callback) {
+            console.log(`User ${username} created successfully`);
+            // Set the session username to the username
+            req.session.username = username;
+            // Send user to app.get("/") if login is successful
+            res.redirect("/");
+        } else {
+            // Send user to signup page with errMsg
+            res.render("index.ejs",
+                {
+                    errMSG: "Either the username is already taken, or the password is invalid. Please try again.",
+                    loginMode: false
+                });
+            console.log(`User ${username} attempted to be created but already exists`);
+        }
+    });
+});
+
+app.post("/logout", (req, res) => {
+    // Destroy the session
+    req.session.destroy();
+    res.render("index.ejs");
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);

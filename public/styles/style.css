@@ -20,6 +20,20 @@
   text-shadow: 0px 0px 4px #00ff15;
 }
 
+#signupButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #ff5e00;
+  color: #ff5e00;
+  transition-duration: 0.3s;
+  text-shadow: 0px 0px 4px #ff5e00;
+}
+
+#signupButton:hover {
+  background: #ff5e00;
+  color: white;
+}
+
 #main-highlight2 {
   color: #ff00e1;
   text-shadow: 0px 0px 4px #ff00e1;
@@ -54,6 +68,41 @@
   animation: MovingBorderAnimationBottom 15s linear infinite;
 }
 
+#welcomeText {
+  font-size: 2rem;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  color: #ff5e00;
+  text-shadow: 0px 0px 4px #ff5e00;
+  margin-top: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(255, 102, 0);
+  transition-duration: 0.3s;
+}
+
+.not-allowed-div {
+  background: #000000;
+  color: rgb(255, 102, 0);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 3px rgb(255, 102, 0);
+  transition-duration: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.not-allowed-div a {
+  text-decoration: none;
+  color: #ff5e00;
+  transition-duration: 0.3s;
+  text-shadow: none;
+}
+
 body {
   background-color: #000000;
   width: 75dvw;
@@ -64,9 +113,9 @@ body .main-header nav ul {
   justify-content: space-around;
   list-style: none;
   padding: 20px;
-  border-bottom: 2px solid rgb(0, 221, 255);
+  border-bottom: 2px solid rgb(255, 102, 0);
   border-radius: 5px;
-  box-shadow: 0 4px 4px -3px rgb(0, 221, 255);
+  box-shadow: 0 4px 4px -3px rgb(255, 102, 0);
 }
 body .main-header nav ul li a {
   text-decoration: none;
@@ -74,16 +123,142 @@ body .main-header nav ul li a {
   transition-duration: 0.3s;
 }
 body .main-header nav ul li a:hover {
-  color: rgb(0, 221, 255);
+  color: rgb(255, 102, 0);
 }
 body .main-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: rgb(0, 221, 255);
-  text-shadow: 0px 0px 4px rgb(0, 221, 255);
+  color: rgb(255, 102, 0);
+  text-shadow: 0px 0px 4px rgb(255, 102, 0);
   height: 100vh;
+}
+body .main-container .main-content-container {
+  display: flex;
+  justify-content: start;
+  align-self: center;
+  writing-mode: horizontal-tb;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper {
+  margin-top: 80px;
+  background: #272727;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 3px rgb(255, 102, 0);
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  background: #0e0e0e;
+  /* Style the buttons that are used to open the tab content */
+  /* Change background color of buttons on hover */
+  /* Create an active/current tablink class */
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button:hover {
+  background-color: #ddd;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button.active {
+  background-color: #ccc;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+  animation: fadeEffect 1s;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(255, 102, 0);
+  background: #000000;
+  color: white;
+  text-align: center;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #ff5e00;
+  color: #ff5e00;
+  transition-duration: 0.3s;
+  text-shadow: 0px 0px 4px #ff5e00;
+}
+body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button:hover {
+  background: #ff5e00;
+  color: white;
+}
+body .create-account,
+body .login {
+  background: rgb(0, 0, 0);
+  padding: 20px;
+  width: 30vw;
+  border-radius: 10px;
+  height: 50vh;
+  box-shadow: 0 0 10px 3px rgb(255, 102, 0);
+  transition-duration: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body .create-account form,
+body .login form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+body .create-account form input,
+body .login form input {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(255, 102, 0);
+  background: #000000;
+  color: white;
+  text-align: center;
+}
+body .create-account a,
+body .login a {
+  text-decoration: none;
+  color: #ff5e00;
+  transition-duration: 0.3s;
+  text-shadow: none;
+}
+body .create-account:hover,
+body .login:hover {
+  box-shadow: 0 0 10px 10px #ff00e1;
 }
 
 footer {
@@ -94,6 +269,27 @@ footer {
   color: white;
   text-align: center;
   padding: 10px;
+}
+footer #logoutForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+footer #logoutForm input {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(255, 102, 0);
+  background: #000000;
+  color: white;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+footer #logoutForm input:hover {
+  border: 1px solid #ff00e1;
+  scale: 1.1;
+  cursor: pointer;
 }
 
 @keyframes MovingBorderAnimation {
@@ -107,7 +303,7 @@ footer {
     border: 2px solid rgb(0, 247, 0);
   }
   60% {
-    border: 2px solid rgb(0, 221, 255);
+    border: 2px solid rgb(255, 102, 0);
   }
   80% {
     border: 2px solid #00ff15;
@@ -127,12 +323,20 @@ footer {
     border-bottom: 2px solid rgb(0, 247, 0);
   }
   60% {
-    border-bottom: 2px solid rgb(0, 221, 255);
+    border-bottom: 2px solid rgb(255, 102, 0);
   }
   80% {
     border-bottom: 2px solid #00ff15;
   }
   100% {
     border-bottom: 2px solid #ff00e1;
+  }
+}
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }/*# sourceMappingURL=style.css.map */

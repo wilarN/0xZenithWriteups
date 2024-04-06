@@ -1,10 +1,11 @@
 @import url("fonts/OTF/FantasqueSansMono-Regular.otf");
 
 $main-color: #000000;
-$main-color-light: #333;
-$secondary-color: rgb(0, 221, 255);
+$main-color-light: #272727;
+$secondary-color: rgb(255, 102, 0);
 $tertiary-color: #00ff15;
 $quaternary-color: #ff00e1;
+$quinary-color: #ff5e00;
 
 * {
     padding: 0px;
@@ -23,13 +24,28 @@ $quaternary-color: #ff00e1;
     justify-content: center;
     align-items: center;
 }
-.cmd-terminal-container{
+
+.cmd-terminal-container {
     width: 100%;
 }
 
 #main-highlight {
     color: $tertiary-color;
     text-shadow: 0px 0px 4px $tertiary-color;
+}
+
+#signupButton {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid $quinary-color;
+    color: $quinary-color;
+    transition-duration: 0.3s;
+    text-shadow: 0px 0px 4px $quinary-color;
+}
+
+#signupButton:hover {
+    background: $quinary-color;
+    color: white;
 }
 
 #main-highlight2 {
@@ -47,24 +63,61 @@ $quaternary-color: #ff00e1;
     color: white;
 }
 
-#animated-border{
+#animated-border {
     padding: 10px 20px;
     border: 2px solid rgb(28, 28, 77);
     border-radius: 20px;
     animation: MovingBorderAnimation 15s linear infinite;
 }
 
-#animated-border-bottom{
+#animated-border-bottom {
     padding: 10px 20px;
     border-bottom: 2px solid rgb(28, 28, 77);
     border-radius: 20px;
     animation: MovingBorderAnimationBottom 15s linear infinite;
 }
 
+#welcomeText {
+    font-size: 2rem;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color: $quinary-color;
+    text-shadow: 0px 0px 4px $quinary-color;
+    margin-top: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: $secondary-color;
+    transition-duration: 0.3s;
+}
+
+
+.not-allowed-div {
+    background: $main-color;
+    color: $secondary-color;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 3px $secondary-color;
+    transition-duration: 0.4s;
+    @include flexCenter;
+    flex-direction: column;
+
+    a {
+        text-decoration: none;
+        color: $quinary-color;
+        transition-duration: 0.3s;
+        text-shadow: none;
+    }
+
+}
+
 body {
     background-color: $main-color;
     width: 75dvw;
     margin: auto;
+
     .main-header {
         nav {
             ul {
@@ -77,7 +130,7 @@ body {
                 box-shadow: 0 4px 4px -3px $secondary-color;
 
                 li {
-                    a{
+                    a {
                         text-decoration: none;
                         color: white;
                         transition-duration: 0.3s;
@@ -98,6 +151,151 @@ body {
         color: $secondary-color;
         text-shadow: 0px 0px 4px $secondary-color;
         height: 100vh;
+
+        // Main content when user is logged in
+        .main-content-container {
+            display: flex;
+            justify-content: start;
+            align-self: center;
+            // Still make the text be written from left to right
+            writing-mode: horizontal-tb;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+
+            .main-cont-inner-wrapper {
+                margin-top: 80px;
+                background: $main-color-light;
+                border-radius: 5px;
+                box-shadow: 0 0 10px 3px $secondary-color;
+
+                .inner-inner {
+                    margin: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    background: darken($color: $main-color-light, $amount: 10);
+
+                    .tab {
+                        overflow: hidden;
+                        border: 1px solid #ccc;
+                        background-color: #f1f1f1;
+                    }
+
+                    /* Style the buttons that are used to open the tab content */
+                    .tab button {
+                        background-color: inherit;
+                        float: left;
+                        border: none;
+                        outline: none;
+                        cursor: pointer;
+                        padding: 14px 16px;
+                        transition: 0.3s;
+                    }
+
+                    /* Change background color of buttons on hover */
+                    .tab button:hover {
+                        background-color: #ddd;
+                    }
+
+                    /* Create an active/current tablink class */
+                    .tab button.active {
+                        background-color: #ccc;
+                    }
+
+                    .inner-inner-inner {
+                        margin: 50px;
+                        display: flex;
+                        flex-direction: column;
+
+                        .tabcontent {
+                            display: none;
+                            padding: 6px 12px;
+                            border-top: none;
+                            animation: fadeEffect 1s;
+                        }
+
+
+
+                        .create-new-post {
+                            display: flex;
+                            flex-direction: column;
+                            margin: 20px;
+
+                            input {
+                                width: 80%;
+                                padding: 10px;
+                                margin: 10px;
+                                border-radius: 5px;
+                                border: 1px solid $secondary-color;
+                                background: $main-color;
+                                color: white;
+                                text-align: center;
+                            }
+
+                            button {
+                                padding: 10px 20px;
+                                border-radius: 10px;
+                                border: 2px solid $quinary-color;
+                                color: $quinary-color;
+                                transition-duration: 0.3s;
+                                text-shadow: 0px 0px 4px $quinary-color;
+                            }
+
+                            button:hover {
+                                background: $quinary-color;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+    }
+
+    .create-account,
+    .login {
+        background: rgb(0, 0, 0);
+        padding: 20px;
+        width: 30vw;
+        border-radius: 10px;
+        height: 50vh;
+        box-shadow: 0 0 10px 3px $secondary-color;
+        transition-duration: 0.4s;
+        @include flexCenter;
+        flex-direction: column;
+
+        form {
+            @include flexCenter;
+            flex-direction: column;
+            width: 100%;
+
+            input {
+                width: 80%;
+                padding: 10px;
+                margin: 10px;
+                border-radius: 5px;
+                border: 1px solid $secondary-color;
+                background: $main-color;
+                color: white;
+                text-align: center;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: $quinary-color;
+            transition-duration: 0.3s;
+            text-shadow: none;
+        }
+    }
+
+    .create-account:hover,
+    .login:hover {
+        box-shadow: 0 0 10px 10px $quaternary-color;
     }
 }
 
@@ -109,6 +307,28 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
+
+    #logoutForm {
+        @include flexCenter;
+        flex-direction: column;
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid $secondary-color;
+            background: $main-color;
+            color: white;
+            text-align: center;
+            transition-duration: 0.4s;
+        }
+
+        input:hover {
+            border: 1px solid $quaternary-color;
+            scale: 1.1;
+            cursor: pointer;
+        }
+    }
 }
 
 @keyframes MovingBorderAnimation {
@@ -125,17 +345,18 @@ footer {
     }
 
     60% {
-        border: 2px solid  $secondary-color;
+        border: 2px solid $secondary-color;
     }
 
     80% {
-        border: 2px solid  $tertiary-color;
+        border: 2px solid $tertiary-color;
     }
 
     100% {
         border: 2px solid $quaternary-color;
     }
 }
+
 @keyframes MovingBorderAnimationBottom {
     0% {
         border-bottom: 2px solid $quaternary-color;
@@ -150,14 +371,24 @@ footer {
     }
 
     60% {
-        border-bottom: 2px solid  $secondary-color;
+        border-bottom: 2px solid $secondary-color;
     }
 
     80% {
-        border-bottom: 2px solid  $tertiary-color;
+        border-bottom: 2px solid $tertiary-color;
     }
 
     100% {
         border-bottom: 2px solid $quaternary-color;
+    }
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }

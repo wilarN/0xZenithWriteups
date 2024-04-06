@@ -1,17 +1,128 @@
-<%- include('templates/head', {title: "Home"}) %>
-<body>
-    <div class="main-header">
-        <nav>
-            <ul>
-                <li><a href="/">/home</a></li>
-                <li><a href="/writeups">/writeups</a></li>
-                <li><a href="/about">/about</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="cmd-terminal-container"></div>
-    <div class="main-container">
+<%- include('templates/head', {title: "Home" }) %>
 
-    </div>
-</body>
-<%- include('templates/terminal/cmd') %>
+    <body>
+        <div class="main-header">
+            <nav>
+                <ul>
+                    <li><a href="/">/home</a></li>
+                    <li><a href="/writeups">/writeups</a></li>
+                    <li><a href="/about">/about</a></li>
+                    <li><a href="/terminal">/terminal</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-container">
+            <% if(locals.session){ %>
+                <!-- LOGGED IN -->
+
+                <div class="main-content-container">
+                    <div class='main-cont-inner-wrapper'>
+                        <div class="inner-inner">
+                            <div class="inner-inner-inner">
+                                <div id="welcomeText"></div>
+                                <h1>0xZenith</h1>
+                                <p>Welcome to the 0xZenith writeups page!</p>
+                                <p>Here you can find writeups for various CTF challenges and other security-related
+                                    topics.
+                                </p><br>
+                                <h3>Feel free to browse around and check out the writeups!</h3>
+                                <br><br><br>
+                                <div class="latest-writeups">
+                                    <h2>Latest Writeups:</h2>
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <% } else { %>
+                    <% if(!locals.loginMode) { %>
+                        <!-- SIGNUP -->
+                        <div class="create-account">
+                            <h1>Sign Up</h1>
+                            <form action="/signup" method="POST">
+                                <input type="text" name="username" autocomplete='off' autofocus placeholder="Username"
+                                    required>
+                                <input type="password" name="password" placeholder="Password" autocomplete='off'
+                                    required>
+                                <input type="password" name="confirmPassword" placeholder="Confirm Password"
+                                    autocomplete='off' required>
+                                <span id='conf-pass-match'></span>
+                                <input type="submit" value="Sign Up">
+
+                                <% if(locals.errMSG) { %>
+                                    <p id='errMSG'></p>
+                                    <script>
+                                        document.getElementById('errMSG').innerText = "<%= locals.errMSG %>";
+                                        document.getElementById('errMSG').style.color = 'red';
+                                    </script>
+                                    <% } %>
+
+                                        <p>Already have an account? <a href="/usrLogin">Login</a></p>
+                            </form>
+                        </div>
+                        <% } else { %>
+                            <!-- LOGIN -->
+                            <div class="login">
+                                <h1>Login</h1>
+                                <form action="/login" method="POST">
+                                    <input type="text" name="username" autocomplete='off' autofocus
+                                        placeholder="Username" required>
+                                    <input type="password" name="password" placeholder="Password" autocomplete='off'
+                                        required>
+                                    <input type="submit" value="Login">
+
+                                    <% if(locals.errMSG) { %>
+                                        <p id='errMSG'></p>
+                                        <script>
+                                            document.getElementById('errMSG').innerText = "<%= locals.errMSG %>";
+                                            document.getElementById('errMSG').style.color = 'red';
+                                        </script>
+                                        <% } %>
+
+                                            <p>Don't have an account? <a href="/usrSignup">Sign Up</a></p>
+
+                                </form>
+                            </div>
+                            <% } %>
+        </div>
+        <script>
+            // Password keyup event listener for the validation of the password and confirm password fields
+            document.querySelector('input[name="confirmPassword"]').addEventListener('keyup', function () {
+                let pass = document.querySelector('input[name="password"]').value;
+                let confPass = document.querySelector('input[name="confirmPassword"]').value;
+                if (pass === confPass) {
+                    document.getElementById('conf-pass-match').innerText = 'Passwords match';
+                    document.getElementById('conf-pass-match').style.color = 'green';
+                } else {
+                    document.getElementById('conf-pass-match').innerText = 'Passwords do not match';
+                    document.getElementById('conf-pass-match').style.color = 'red';
+                }
+            });
+        </script>
+        <% } %>
+            <% if(locals.session){ %>
+                <script>
+                    const txt = "Welcome <%= locals.session.username %> to the 0xZenith writeups page!";
+                    let countingUp = true;
+                    let count = 0;
+                    const setUpdate = setInterval(function () {
+                        if (count > txt.length) {
+                            countingUp = false;
+                            count -= 2;
+                        } else if (count < 0) {
+                            countingUp = true;
+                            count += 2;
+                        }
+
+                        welcomeText.innerHTML = txt.slice(0, count);
+                        count += countingUp ? 1 : -1;
+                    }, 100);
+                </script>
+                <% } %>
+
+    </body>
+    <%- include('templates/footer.ejs') %>

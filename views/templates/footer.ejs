@@ -1,4 +1,9 @@
 <footer>
+    <% if(locals.session){ %>
+        <form action="/logout" id='logoutForm' method="POST">
+            <input type="submit" value="Logout">
+        </form>
+        <% } %>
     <p id='main-highlight2'>&copy; 2024 0xZenith</p>
 </footer>
 </html>

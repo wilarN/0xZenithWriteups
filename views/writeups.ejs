@@ -1,17 +1,88 @@
-<%- include('templates/head', {title: "Writeups"}) %>
-<body>
-    <div class="main-header">
-        <nav>
-            <ul>
-                <li><a href="/">/home</a></li>
-                <li><a href="/writeups">/writeups</a></li>
-                <li><a href="/about">/about</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="cmd-terminal-container"></div>
-    <div class="main-container">
+<%- include('templates/head', {title: "Writeups" }) %>
 
-    </div>
-</body>
-<%- include('templates/footer.ejs') %>
+    <body>
+        <div class="main-header">
+            <nav>
+                <ul>
+                    <li><a href="/">/home</a></li>
+                    <li><a href="/writeups">/writeups</a></li>
+                    <li><a href="/about">/about</a></li>
+                    <li><a href="/terminal">/terminal</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="main-container">
+            <% if(locals.session){ %>
+                <!-- LOGGED IN -->
+
+                <div class="main-content-container">
+                    <div class='main-cont-inner-wrapper'>
+                        <div class="inner-inner">
+                            <div class='tab'>
+                                <button class='tablinks' onclick='openTab(event, "createNewWriteup")'>Create new
+                                    writeup</button>
+                                <button class='tablinks' onclick='openTab(event, "viewWriteups")'>View writeups</button>
+                            </div>
+                            <div class="inner-inner-inner">
+                                <div id='createNewWriteup' class='tabcontent'>
+                                    <div class="create-new-post">
+                                        <h1>Create a new writeup</h1>
+                                        <form action="/writeups" method="POST">
+                                            <input type="text" name="title" placeholder="Title" required>
+                                            <textarea name="content" placeholder="Writeup" required></textarea>
+                                            <input type="submit" value="Post">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id='viewWriteups' class='tabcontent'>
+                                    <div class="view-write">
+                                        <h1>All writeups:</h1>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, eum.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <% } else { %>
+                        <div class="not-allowed-div">
+                            <img src="img/cat-magic-carpet-bed.gif" draggable='false' alt="">
+                            <h1>Please login or create an account to view the writeups!</h1>
+                            <a id='signupButton' href="/" draggable='false'>Signup/Login</a>
+                        </div>
+                        <% } %>
+
+                </div>
+                <script>
+
+                    // Call the function after the page is fully loaded
+                    window.addEventListener('load', function () {
+                        document.getElementById("viewWriteups").style.display = "block";
+                        evt.currentTarget.className += " active";
+                    });
+
+                    function openTab(evt, tabName) {
+                        // Declare all variables
+                        var i, tabcontent, tablinks;
+
+                        // Get all elements with class="tabcontent" and hide them
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
+                        }
+
+                        // Get all elements with class="tablinks" and remove the class "active"
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+
+                        // Show the current tab, and add an "active" class to the button that opened the tab
+                        document.getElementById(tabName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
+
+                </script>
+    </body>
+    <%- include('templates/footer.ejs') %>

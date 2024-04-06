@@ -74,9 +74,12 @@ function create_new_user(username, password, callback) {
     // Attempt to create a new user in db if it doesn't exist
 
     // Hash password with bcrypt
-    const saltRounds = 10;
-    const salt = bcrypt.genSaltSync(saltRounds);
-    password = bcrypt.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(10);
+    password = bcrypt.hashSync(password, salt, (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+    });
 
     // Insert the new user into the db
     db_conn.db.serialize(() => {
