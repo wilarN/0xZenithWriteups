@@ -221,6 +221,23 @@ img {
     text-shadow: 0px 0px 4px $quaternary-color;
     text-align: center;
     padding: 10px;
+
+    form{
+        input[type="submit"]{
+            padding: 10px 20px;
+            background: none;
+            color: white;
+            border: 2px solid $quaternary-color;
+            border-radius: 10px;
+            transition-duration: 0.4s;
+            &:hover{
+                color: white;
+                scale: 1.05;
+                border: 2px solid $quinary-color;
+                cursor: pointer;
+            }
+        }
+    }
 }
 
 .not-allowed-div {

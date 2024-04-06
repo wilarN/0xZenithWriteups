@@ -211,6 +211,20 @@ img {
   text-align: center;
   padding: 10px;
 }
+.writeup-footer form input[type=submit] {
+  padding: 10px 20px;
+  background: none;
+  color: white;
+  border: 2px solid #ff00e1;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+}
+.writeup-footer form input[type=submit]:hover {
+  color: white;
+  scale: 1.05;
+  border: 2px solid #ff5e00;
+  cursor: pointer;
+}
 
 .not-allowed-div {
   background: #000000;
