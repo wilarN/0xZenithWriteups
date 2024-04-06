@@ -596,7 +596,7 @@ footer #logoutForm input:hover {
   body {
     width: 100vw;
   }
-  .main-header {
+  body .main-header {
     position: fixed;
     width: 100vw;
   }

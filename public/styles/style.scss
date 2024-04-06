@@ -169,6 +169,7 @@ img {
     .fullview-writeup-inner {
 
         padding: 30px;
+
         h2 {
             padding: 20px;
             margin-top: 20px;
@@ -654,11 +655,12 @@ footer {
 @media screen and (max-width: 1200px) {
     body {
         width: 100vw;
-    }
 
-    .main-header {
-        position: fixed;
-        width: 100vw;
+        .main-header {
+            position: fixed;
+            width: 100vw;
+        }
+
     }
 
     .main-container {
