@@ -3,13 +3,13 @@
         <% if(!locals.full_display_mode) { %>
             <form action="/fullview" method='POST'>
                 <% for(let i=0; i < locals.writeups.length; i++) { %>
-                    <div class="writeup" data-post_id="<%= locals.writeups[i].id %>">
+                    <div class="writeup" data-post_id="<%= locals.writeups[i]._id %>">
                         <!-- Hidden input field to store post ID -->
-                        <input type="hidden" name="post_id" value="<%= locals.writeups[i].id %>">
+                        <input type="hidden" name="post_id" value="<%= locals.writeups[i]._id %>">
                         <h2><%= locals.writeups[i].title %></h2><br>
                         <div class="writeup-footer">
                             <p>By: <%= locals.writeups[i].author %></p>
-                            <p>Posted on: <%= locals.writeups[i].date %></p>
+                            <p>Posted on: <%= locals.writeups[i].post_date %></p>
                         </div>
                     </div>
                 <% } %>
@@ -23,7 +23,7 @@
                         <p><%= locals.writeups[i].content %></p>
                         <div class="writeup-footer">
                             <p>By: <%= locals.writeups[i].author %></p>
-                            <p>Posted on: <%= locals.writeups[i].date %></p>
+                            <p>Posted on: <%= locals.writeups[i].post_date %></p>
                         </div>
                     </div>
                 <% } %>

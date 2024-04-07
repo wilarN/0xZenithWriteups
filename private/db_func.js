@@ -1,11 +1,20 @@
 const sqlite3 = require('sqlite3');
 const bcrypt = require('bcrypt');
 const { blog_post } = require('./blogpost.js');
+const mysql = require('mysql2/promise');
 
 // If object of db is not created, create new class of db
 class db {
     constructor() {
-        this.db = db_validation();
+        this.pool = mysql.createPool({
+            host: '192.168.1.100',
+            user: 'unmanaged_connector',
+            password: '',
+            database: 'writeups_gothenburg_central_V_231',
+            waitForConnections: true,
+            connectionLimit: 10,
+            queueLimit: 0
+        });
     }
 }
 
@@ -13,17 +22,16 @@ db_conn = new db();
 
 // Create new db if it doesnt exist
 function db_validation() {
-    db = new sqlite3.Database('blog.sqlite', (err) => {
+    db_conn.pool.getConnection((err, connection) => {
         if (err) {
-            console.error(err.message);
+            console.error('Error connecting to MySQL:', err.message);
+            return;
         }
-        console.log('Connected to the database.');
-        db.serialize(() => {
-            db.run('CREATE TABLE IF NOT EXISTS blog (id INTEGER PRIMARY KEY, title TEXT, content TEXT, author TEXT, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
-            db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT, reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
-        });
+        console.log('Connected to MySQL database.');
+        connection.release();
     });
-    return db;
+
+    return db_conn.pool;
 }
 
 async function insert_new_blogpost(blog_post) {
@@ -35,16 +43,7 @@ async function insert_new_blogpost(blog_post) {
             return false;
         } else {
             console.log("Inserting new blog post");
-            await new Promise((resolve, reject) => { // Promise to prevent error even though it worked.
-                db.run('INSERT INTO blog (title, content, author) VALUES (?, ?, ?)', [blog_post.title, blog_post.content, blog_post.author], function (err) {
-                    if (err) {
-                        console.error(err.message);
-                        reject(err);
-                    } else {
-                        resolve(true);
-                    }
-                });
-            });
+            await db_conn.pool.execute('INSERT INTO blogs (title, content, author, post_date) VALUES (?, ?, ?, ?)', [blog_post.title, blog_post.content, blog_post.author, new Date()]);
             return true;
         }
     } catch (err) {
@@ -54,18 +53,22 @@ async function insert_new_blogpost(blog_post) {
 }
 
 async function delete_writeup_by_id(id) {
+    // Check if its the author of the post
+    if(!req.session.username) {
+        return false;
+    }
+    const post = fetch_writeup_by_id(id);
+    if(post.author != req.session.username) {
+        return false;
+    }
     try {
-        await new Promise((resolve, reject) => {
-            db_conn.db.run('DELETE FROM blog WHERE id = ?', [id], (err) => {
-                if (err) {
-                    console.error(err.message);
-                    reject(err);
-                } else {
-                    resolve(true);
-                }
-            });
-        });
-        return true;
+        const connection = await db_conn.pool.getConnection();
+        const [rows, fields] = await connection.execute('DELETE FROM blogs WHERE _id = ?', [id]);
+        connection.release();
+        if (rows.affectedRows > 0)
+            return true;
+        else
+            return false;
     } catch (err) {
         console.error(err);
         return false;
@@ -73,42 +76,40 @@ async function delete_writeup_by_id(id) {
 }
 
 async function fetch_post_by_name(title, callback) {
-    db_conn.db.serialize(() => {
-        db_conn.db.get('SELECT * FROM blog WHERE title = ?', [title], (err, row) => {
-            if (err) {
-                console.error(err.message);
-            }
-            return row;
-        });
-    });
+    try {
+        const connection = await db_conn.pool.getConnection(); // Get a connection from the pool
+        const [rows, fields] = await connection.execute('SELECT * FROM blogs WHERE title = ?', [title]);
+        connection.release();
+        return rows[0];
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
 }
 
-function login_user(username, password, callback) {
-    // Attempt to login a user with the given username and password
-    db_conn.db.serialize(() => {
-        db_conn.db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
-            if (err) {
-                console.error(err.message);
-                callback(false); // Call the callback with false if an error occurred
+async function login_user(username, password, callback) {
+    try {
+        const connection = await db_conn.pool.getConnection();
+        const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ?', [username]);
+        connection.release();
+        if (rows.length > 0) {
+            if (bcrypt.compareSync(password, rows[0].password)) {
+                callback(true);
             } else {
-                if (row) {
-                    // Check if the password is correct
-                    if (bcrypt.compareSync(password, row.password)) {
-                        callback(true); // Call the callback with true if the password is correct
-                    } else {
-                        callback(false); // Call the callback with false if the password is incorrect
-                    }
-                } else {
-                    callback(false); // Call the callback with false if the user doesn't exist
-                }
+                callback(false);
             }
-        });
-    });
+        } else {
+            callback(false);
+        }
+    } catch (err) {
+        console.error(err);
+        callback(false);
+    }
 }
 
-function create_new_user(username, password, callback) {
+async function create_new_user(username, password, callback) {
     // Check if the user already exists
-    user_exists(username, (exists) => {
+    user_exists(username, async (exists) => {
         if (exists) {
             console.log(`User ${username} already exists, cannot create a new user with the same username`);
             callback(false);
@@ -117,53 +118,49 @@ function create_new_user(username, password, callback) {
             const salt = bcrypt.genSaltSync(10);
             password = bcrypt.hashSync(password, salt);
 
-            // Insert the new user into the db
-            db_conn.db.serialize(() => {
-                db_conn.db.run('INSERT INTO users (username, password) VALUES (?, ?)', [username, password], (err) => {
-                    if (err) {
-                        console.error(err.message);
-                        callback(false); // Call the callback with false if an error occurred
-                    } else {
-                        callback(true); // Call the callback with true if the operation was successful
-                    }
-                });
-            });
+            try {
+                // Insert new user into database
+                const connection = await db_conn.pool.getConnection();
+                const [rows, fields] = await connection.execute('INSERT INTO users (username, password, reg_date) VALUES (?, ?, ?)', [username, password, new Date()]);
+                connection.release();
+                if (rows.affectedRows > 0) {
+                    console.log(`User ${username} created successfully`);
+                    callback(true);
+                } else {
+                    console.log(`Failed to create user ${username}`);
+                    callback(false);
+                }
+            } catch (err) {
+                console.error(err);
+                callback(false);
+            }
         }
     });
 }
 
 async function user_exists(username, callback) {
-    db_conn.db.serialize(() => {
-        db_conn.db.get('SELECT * FROM users WHERE username = ?', [username], (err, row) => {
-            if (err) {
-                console.error(err.message);
-                callback(false);
-            }
-            if (row) {
-                console.log(`User ${username} already exists`);
-                callback(true);
-            } else {
-                console.log(`User ${username} does not exist`);
-                callback(false);
-            }
-        });
-    });
+    try {
+        const connection = await db_conn.pool.getConnection();
+        const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ?', [username]);
+        connection.release();
+        if (rows.length > 0) {
+            callback(true);
+        } else {
+            callback(false);
+        }
+    } catch (err) {
+        console.error(err);
+        callback(false);
+    }
 }
 
 async function fetch_all_writeups() {
     try {
-        const all_posts = await new Promise((resolve, reject) => {
-            db_conn.db.all('SELECT * FROM blog', (err, rows) => {
-                if (err) {
-                    console.error(err.message);
-                    reject(err);
-
-                } else {
-                    resolve(rows);
-                }
-            });
-        });
-        if(all_posts){
+        const connection = await db_conn.pool.getConnection();
+        const [all_posts, fields] = await db_conn.pool.execute('SELECT * FROM blogs');
+        connection.release();
+        if (all_posts) {
+            console.log(all_posts);
             return all_posts;
         } else {
             return false;
@@ -176,17 +173,14 @@ async function fetch_all_writeups() {
 
 async function fetch_writeup_by_id(id) {
     try {
-        const post = await new Promise((resolve, reject) => {
-            db_conn.db.get('SELECT * FROM blog WHERE id = ?', [id], (err, row) => {
-                if (err) {
-                    console.error(err.message);
-                    reject(err);
-                } else {
-                    resolve(row);
-                }
-            });
-        });
-        return post;
+        const connection = await db_conn.pool.getConnection();
+        const [post, fields] = await connection.execute('SELECT * FROM blogs WHERE _id = ?', [id]);
+        connection.release();
+        if (post) {
+            return post[0];
+        } else {
+            return false;
+        }
     } catch (err) {
         console.error(err);
         return false;
