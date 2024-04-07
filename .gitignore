@@ -1,3 +1,4 @@
 *.sqlite
 /logs
 logs/access.log
+*.log
