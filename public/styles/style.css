@@ -23,34 +23,34 @@
 #signupButton {
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid #d9ff00;
-  color: #d9ff00;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px #d9ff00;
+  text-shadow: 0px 0px 4px #b60000;
 }
 
 #signupButton:hover {
-  background: #d9ff00;
+  background: #b60000;
   color: white;
 }
 
 #main-highlight2 {
-  color: #ff00e1;
-  text-shadow: 0px 0px 4px #ff00e1;
+  color: #ff1d1d;
+  text-shadow: 0px 0px 4px #ff1d1d;
 }
 
 ::-moz-selection {
-  background: #ff00e1;
+  background: #ff1d1d;
   color: white;
 }
 
 ::selection {
-  background: #ff00e1;
+  background: #ff1d1d;
   color: white;
 }
 
 ::moz-selection {
-  background: #ff00e1;
+  background: #ff1d1d;
   color: white;
 }
 
@@ -59,6 +59,35 @@
   border: 2px solid rgb(28, 28, 77);
   border-radius: 20px;
   animation: MovingBorderAnimation 15s linear infinite;
+}
+
+#artwork {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-family: Consolas, monospace;
+  font-size: 0.5rem;
+  white-space: pre;
+  z-index: 100;
+  height: 30%;
+  width: 50%;
+  min-width: 50%;
+  min-height: 30%;
+}
+
+.artwork-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  margin: 20px;
+}
+
+#createNewWriteup, #viewWriteups {
+  width: 100%;
 }
 
 #animated-border-bottom {
@@ -78,14 +107,14 @@
   width: 100%;
   height: 40px;
   text-align: center;
-  color: #d9ff00;
-  text-shadow: 0px 0px 4px #d9ff00;
+  color: #b60000;
+  text-shadow: 0px 0px 4px #b60000;
   margin-top: 20px;
 }
 
 a {
   text-decoration: none;
-  color: rgb(255, 238, 0);
+  color: #e90000;
   transition-duration: 0.3s;
 }
 
@@ -123,11 +152,11 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #d9ff00;
-  text-shadow: 0px 0px 4px #d9ff00;
+  color: #b60000;
+  text-shadow: 0px 0px 4px #b60000;
   width: 90%;
   margin: 10px;
-  border: 2px solid #d9ff00;
+  border: 2px solid #b60000;
   border-radius: 10px;
   transition-duration: 0.4s;
 }
@@ -145,7 +174,7 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #d9ff00;
+  color: #b60000;
   width: 100%;
   /* Remove max-height to allow the container to expand based on content */
   /* max-height: 90%; */
@@ -154,10 +183,10 @@ img {
   overflow-x: hidden;
   /* Scroll */
   scrollbar-width: thin;
-  scrollbar-color: #ff00e1 #000000;
+  scrollbar-color: #ff1d1d #000000;
   margin: 10px;
   border-radius: 10px;
-  box-shadow: 0 0 10px 3px #ff00e1;
+  box-shadow: 0 0 10px 3px #ff1d1d;
   transition-duration: 0.4s;
 }
 .fullview-writeup .fullview-writeup-inner {
@@ -177,8 +206,8 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #d9ff00;
-  text-shadow: 0px 0px 4px #ff00e1;
+  color: #b60000;
+  text-shadow: 0px 0px 4px #ff1d1d;
   width: 90%;
   margin: 10px;
   border-radius: 10px;
@@ -187,27 +216,27 @@ img {
 }
 .backhometowriteups a {
   padding: 20px;
-  color: #ff00e1;
-  text-shadow: 0px 0px 4px #ff00e1;
+  color: #ff1d1d;
+  text-shadow: 0px 0px 4px #ff1d1d;
   transition-duration: 0.3s;
-  border: 1px solid #ff00e1;
+  border: 1px solid #ff1d1d;
   border-radius: 5px;
 }
 .backhometowriteups a:hover {
-  background: #ff00e1;
+  background: #ff1d1d;
   color: white;
   scale: 1.1;
 }
 
 .writeup:hover {
-  border: 2px solid #ff00e1;
+  border: 2px solid #ff1d1d;
   cursor: pointer;
   scale: 1.05;
 }
 
 .writeup-footer {
-  color: #ff00e1;
-  text-shadow: 0px 0px 4px #ff00e1;
+  color: #ff1d1d;
+  text-shadow: 0px 0px 4px #ff1d1d;
   text-align: center;
   padding: 10px;
 }
@@ -215,23 +244,23 @@ img {
   padding: 10px 20px;
   background: none;
   color: white;
-  border: 2px solid #ff00e1;
+  border: 2px solid #ff1d1d;
   border-radius: 10px;
   transition-duration: 0.4s;
 }
 .writeup-footer form input[type=submit]:hover {
   color: white;
   scale: 1.05;
-  border: 2px solid #d9ff00;
+  border: 2px solid #b60000;
   cursor: pointer;
 }
 
 .not-allowed-div {
   background: #000000;
-  color: rgb(255, 238, 0);
+  color: #e90000;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px 3px rgb(255, 238, 0);
+  box-shadow: 0 0 10px 3px #e90000;
   transition-duration: 0.4s;
   display: flex;
   justify-content: center;
@@ -240,7 +269,7 @@ img {
 }
 .not-allowed-div a {
   text-decoration: none;
-  color: #d9ff00;
+  color: #b60000;
   transition-duration: 0.3s;
   text-shadow: none;
 }
@@ -260,11 +289,11 @@ body .main-header nav ul {
   justify-content: space-around;
   list-style: none;
   padding: 20px;
-  border-bottom: 2px solid rgb(255, 238, 0);
-  border-left: 2px solid rgb(255, 238, 0);
-  border-right: 2px solid rgb(255, 238, 0);
+  border-bottom: 2px solid #e90000;
+  border-left: 2px solid #e90000;
+  border-right: 2px solid #e90000;
   border-radius: 5px;
-  box-shadow: 0 4px 4px -3px rgb(255, 238, 0);
+  box-shadow: 0 4px 4px -3px #e90000;
 }
 body .main-header nav ul li a {
   text-decoration: none;
@@ -272,14 +301,14 @@ body .main-header nav ul li a {
   transition-duration: 0.3s;
 }
 body .main-header nav ul li a:hover {
-  color: rgb(255, 238, 0);
+  color: #e90000;
 }
 body .main-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: rgb(255, 238, 0);
+  color: #e90000;
   height: 100vh;
 }
 body .main-container .main-content-container {
@@ -295,7 +324,7 @@ body .main-container .main-content-container .main-cont-inner-wrapper {
   margin-top: 80px;
   background: #272727;
   border-radius: 5px;
-  box-shadow: 0 0 10px 3px rgb(255, 238, 0);
+  box-shadow: 0 0 10px 3px #e90000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner {
   margin: 20px;
@@ -303,8 +332,6 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   flex-direction: column;
   background: #0e0e0e;
   /* Style the buttons that are used to open the tab content */
-  /* Change background color of buttons on hover */
-  /* Create an active/current tablink class */
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab {
   overflow: hidden;
@@ -322,18 +349,21 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  border: 1px solid #d9ff00;
+  border: 1px solid #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button:hover {
-  background-color: #d9ff00;
+  background-color: #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button.active {
-  background-color: #d9ff00;
+  background-color: #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
   margin: 50px;
   display: flex;
   flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .tabcontent {
   display: none;
@@ -351,7 +381,7 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 238, 0);
+  border: 1px solid #e90000;
   background: #000000;
   color: white;
   text-align: left;
@@ -361,7 +391,7 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 238, 0);
+  border: 1px solid #e90000;
   background: #000000;
   color: white;
   text-align: left;
@@ -373,13 +403,13 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button {
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid #d9ff00;
-  color: #d9ff00;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px #d9ff00;
+  text-shadow: 0px 0px 4px #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button:hover {
-  background: #d9ff00;
+  background: #b60000;
   color: white;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form {
@@ -391,13 +421,13 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form input[type=submit] {
   padding: 10px 20px;
   width: 10%;
-  border: 2px solid #d9ff00;
-  color: #d9ff00;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px #d9ff00;
+  text-shadow: 0px 0px 4px #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form input[type=submit]:hover {
-  border: 2px solid #ff00e1;
+  border: 2px solid #ff1d1d;
   color: white;
   scale: 1.1;
   cursor: pointer;
@@ -407,7 +437,7 @@ body .main-container-terminal {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: rgb(255, 238, 0);
+  color: #e90000;
   height: 100vh;
   justify-content: start;
 }
@@ -424,7 +454,7 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper {
   margin-top: 80px;
   background: #272727;
   border-radius: 5px;
-  box-shadow: 0 0 10px 3px rgb(255, 238, 0);
+  box-shadow: 0 0 10px 3px #e90000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner {
   margin: 20px;
@@ -451,13 +481,13 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  border: 1px solid #d9ff00;
+  border: 1px solid #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .tab button:hover {
-  background-color: #d9ff00;
+  background-color: #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .tab button.active {
-  background-color: #d9ff00;
+  background-color: #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
   margin: 50px;
@@ -480,7 +510,7 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 238, 0);
+  border: 1px solid #e90000;
   background: #000000;
   color: white;
   text-align: left;
@@ -490,7 +520,7 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 238, 0);
+  border: 1px solid #e90000;
   background: #000000;
   color: white;
   text-align: left;
@@ -502,13 +532,13 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button {
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid #d9ff00;
-  color: #d9ff00;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px #d9ff00;
+  text-shadow: 0px 0px 4px #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button:hover {
-  background: #d9ff00;
+  background: #b60000;
   color: white;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form {
@@ -524,7 +554,7 @@ body .login {
   width: 30vw;
   border-radius: 10px;
   height: 50vh;
-  box-shadow: 0 0 10px 3px rgb(255, 238, 0);
+  box-shadow: 0 0 10px 3px #e90000;
   transition-duration: 0.4s;
   display: flex;
   justify-content: center;
@@ -545,7 +575,7 @@ body .login form input {
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 238, 0);
+  border: 1px solid #e90000;
   background: #000000;
   color: white;
   text-align: center;
@@ -553,12 +583,17 @@ body .login form input {
 }
 body .create-account form input:focus,
 body .login form input:focus {
-  border: 1px solid #ff00e1;
+  border: 1px solid #ff1d1d;
   /* Assuming $quaternary-color is a variable holding the desired color */
+  scale: 1.04;
+}
+body .create-account form input[type=submit],
+body .login form input[type=submit] {
+  width: 30%;
 }
 body .create-account form input[type=submit]:hover,
 body .login form input[type=submit]:hover {
-  border: 1px solid #ff00e1;
+  border: 1px solid #ff1d1d;
   color: white;
   scale: 1.1;
   cursor: pointer;
@@ -566,13 +601,13 @@ body .login form input[type=submit]:hover {
 body .create-account a,
 body .login a {
   text-decoration: none;
-  color: #d9ff00;
+  color: #b60000;
   transition-duration: 0.3s;
   text-shadow: none;
 }
 body .create-account:hover,
 body .login:hover {
-  box-shadow: 0 0 10px 10px #ff00e1;
+  box-shadow: 0 0 10px 10px #ff1d1d;
 }
 
 footer {
@@ -594,14 +629,14 @@ footer #logoutForm input {
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid rgb(255, 238, 0);
+  border: 1px solid #e90000;
   background: #000000;
   color: white;
   text-align: center;
   transition-duration: 0.4s;
 }
 footer #logoutForm input:hover {
-  border: 1px solid #ff00e1;
+  border: 1px solid #ff1d1d;
   scale: 1.1;
   cursor: pointer;
 }
@@ -651,42 +686,42 @@ footer #logoutForm input:hover {
 }
 @keyframes MovingBorderAnimation {
   0% {
-    border: 2px solid #ff00e1;
+    border: 2px solid #ff1d1d;
   }
   20% {
-    border: 2px solid #00ff1e;
+    border: 2px solid #1dffff;
   }
   40% {
     border: 2px solid rgb(0, 247, 0);
   }
   60% {
-    border: 2px solid rgb(255, 238, 0);
+    border: 2px solid #e90000;
   }
   80% {
     border: 2px solid #00ff15;
   }
   100% {
-    border: 2px solid #ff00e1;
+    border: 2px solid #ff1d1d;
   }
 }
 @keyframes MovingBorderAnimationBottom {
   0% {
-    border-bottom: 2px solid #ff00e1;
+    border-bottom: 2px solid #ff1d1d;
   }
   20% {
-    border-bottom: 2px solid #00ff1e;
+    border-bottom: 2px solid #1dffff;
   }
   40% {
     border-bottom: 2px solid rgb(0, 247, 0);
   }
   60% {
-    border-bottom: 2px solid rgb(255, 238, 0);
+    border-bottom: 2px solid #e90000;
   }
   80% {
     border-bottom: 2px solid #00ff15;
   }
   100% {
-    border-bottom: 2px solid #ff00e1;
+    border-bottom: 2px solid #ff1d1d;
   }
 }
 @keyframes fadeEffect {

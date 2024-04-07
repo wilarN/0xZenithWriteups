@@ -2,69 +2,50 @@
 
     <body>
         <%- include('templates/header') %>
-        <div class="main-container">
-            <% if(locals.session){ %>
-                <!-- LOGGED IN -->
+            <div class="main-container">
+                <% if(locals.session){ %>
+                    <!-- LOGGED IN -->
 
-                <div class="main-content-container">
-                    <div class='main-cont-inner-wrapper'>
-                        <div class="inner-inner">
-                            <div class="inner-inner-inner">
-                                <div id="welcomeText"></div>
-                                <h1>0xZenith Writeups</h1>
-                                <p>Welcome to the 0xZenith writeups!</p>
-                                <p>Here you can find writeups for various CTF challenges and other security-related
-                                    topics.
-                                </p><br>
-                                <h3>Feel free to browse around and check out the writeups!</h3>
-                                <a href="/writeups" style='color: white;'>Check out the already existing writeups here!</a>
-                                <br><br><br>
-                                <div class="latest-writeups">
-                                    <h2>Latest Writeups:</h2>
-                                    <%- include("templates/writeup.ejs") %>
+                    <div class="main-content-container">
+                        <div class='main-cont-inner-wrapper'>
+                            <div class="inner-inner">
+                                <div class="inner-inner-inner">
+                                    <div class="artwork-wrapper">
+                                        <pre id='artwork'></pre>
+                                    </div>
+                                    <div id="welcomeText"></div><br><br>
+                                    <p>Welcome to the 0xZenith writeups!</p>
+                                    <p>Here you can find writeups for various CTF challenges and other security-related
+                                        topics.
+                                    </p><br>
+                                    <h3>Feel free to browse around and check out the writeups!</h3>
+                                    <a href="/writeups" style='color: white;'>Click here to check out the already existing writeups
+                                        here!</a>
+                                    <br><br><br>
+                                    <div class="latest-writeups">
+                                        <h2>Latest Writeups:</h2>
+                                        <%- include("templates/writeup.ejs") %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-
-                <% } else { %>
-                    <% if(!locals.login_mode) { %>
-                        <!-- SIGNUP -->
-                        <div class="create-account">
-                            <h1>Sign Up</h1>
-                            <form action="/signup" method="POST">
-                                <input type="text" name="username" autocomplete='off' autofocus placeholder="Username"
-                                    required>
-                                <input type="password" name="password" placeholder="Password" autocomplete='off'
-                                    required>
-                                <input type="password" name="confirmPassword" placeholder="Confirm Password"
-                                    autocomplete='off' required>
-                                <span id='conf-pass-match'></span>
-                                <input type="submit" value="Sign Up">
-
-                                <% if(locals.err_msg) { %>
-                                    <p id='err_msg'></p>
-                                    <script>
-                                        document.getElementById('err_msg').innerText = "<%= locals.err_msg %>";
-                                        document.getElementById('err_msg').style.color = 'red';
-                                    </script>
-                                    <% } %>
-
-                                        <p>Already have an account? <a href="/usrLogin">Login</a></p>
-                            </form>
-                        </div>
-                        <% } else { %>
-                            <!-- LOGIN -->
-                            <div class="login">
-                                <h1>Login</h1>
-                                <form action="/login" method="POST">
+                    <% } else { %>
+                        <% if(!locals.login_mode) { %>
+                            <!-- SIGNUP -->
+                            <div class="create-account">
+                                <pre id='artwork'></pre>
+                                <h1>Sign Up</h1>
+                                <form action="/signup" method="POST">
                                     <input type="text" name="username" autocomplete='off' autofocus
                                         placeholder="Username" required>
                                     <input type="password" name="password" placeholder="Password" autocomplete='off'
                                         required>
-                                    <input type="submit" value="Login">
+                                    <input type="password" name="confirmPassword" placeholder="Confirm Password"
+                                        autocomplete='off' required>
+                                    <span id='conf-pass-match'></span>
+                                    <input type="submit" value="Sign Up">
 
                                     <% if(locals.err_msg) { %>
                                         <p id='err_msg'></p>
@@ -74,46 +55,184 @@
                                         </script>
                                         <% } %>
 
-                                            <p>Don't have an account? <a href="/usrSignup">Sign Up</a></p>
-
+                                            <p>Already have an account? <a href="/usrLogin">Login</a></p>
                                 </form>
                             </div>
-                            <% } %>
-        </div>
-        <script>
-            // Password keyup event listener for the validation of the password and confirm password fields
-            document.querySelector('input[name="confirmPassword"]').addEventListener('keyup', function () {
-                let pass = document.querySelector('input[name="password"]').value;
-                let confPass = document.querySelector('input[name="confirmPassword"]').value;
-                if (pass === confPass) {
-                    document.getElementById('conf-pass-match').innerText = 'Passwords match';
-                    document.getElementById('conf-pass-match').style.color = 'green';
-                } else {
-                    document.getElementById('conf-pass-match').innerText = 'Passwords do not match';
-                    document.getElementById('conf-pass-match').style.color = 'red';
-                }
-            });
-        </script>
-        <% } %>
-            <% if(locals.session){ %>
-                <script>
-                    const txt = "Welcome <%= locals.session.username %> to the 0xZenith writeups page!";
-                    let countingUp = true;
-                    let count = 0;
-                    const setUpdate = setInterval(function () {
-                        if (count > txt.length) {
-                            countingUp = false;
-                            count -= 2;
-                        } else if (count < 0) {
-                            countingUp = true;
-                            count += 2;
-                        }
+                            <% } else { %>
+                                <!-- LOGIN -->
+                                <div class="login">
+                                    <pre id='artwork'></pre>
 
-                        welcomeText.innerHTML = txt.slice(0, count);
-                        count += countingUp ? 1 : -1;
-                    }, 100);
-                </script>
-                <% } %>
+                                    <h1>Login</h1>
+                                    <form action="/login" method="POST">
+                                        <input type="text" name="username" autocomplete='off' autofocus
+                                            placeholder="Username" required>
+                                        <input type="password" name="password" placeholder="Password" autocomplete='off'
+                                            required>
+                                        <input type="submit" value="Login">
+
+                                        <% if(locals.err_msg) { %>
+                                            <p id='err_msg'></p>
+                                            <script>
+                                                document.getElementById('err_msg').innerText = "<%= locals.err_msg %>";
+                                                document.getElementById('err_msg').style.color = 'red';
+                                            </script>
+                                            <% } %>
+
+                                                <p>Don't have an account? <a href="/usrSignup">Sign Up</a></p>
+
+                                    </form>
+                                </div>
+                                <% } %>
+            </div>
+            <script>
+                // Password keyup event listener for the validation of the password and confirm password fields
+                document.querySelector('input[name="confirmPassword"]').addEventListener('keyup', function () {
+                    let pass = document.querySelector('input[name="password"]').value;
+                    let confPass = document.querySelector('input[name="confirmPassword"]').value;
+                    if (pass === confPass) {
+                        document.getElementById('conf-pass-match').innerText = 'Passwords match';
+                        document.getElementById('conf-pass-match').style.color = 'green';
+                    } else {
+                        document.getElementById('conf-pass-match').innerText = 'Passwords do not match';
+                        document.getElementById('conf-pass-match').style.color = 'red';
+                    }
+                });
+            </script>
+            <% } %>
+                <% if(locals.session){ %>
+                    <script>
+                        const txt = "Welcome <%= locals.session.username %> to the 0xZenith writeups page!";
+                        let countingUp = true;
+                        let count = 0;
+                        const setUpdate = setInterval(function () {
+                            if (count > txt.length) {
+                                countingUp = false;
+                                count -= 2;
+                            } else if (count < 0) {
+                                countingUp = true;
+                                count += 2;
+                            }
+
+                            welcomeText.innerHTML = txt.slice(0, count);
+                            count += countingUp ? 1 : -1;
+                        }, 100);
+                    </script>
+                    <% } %>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const artwork = document.getElementById("artwork");
+
+
+                                // ASCII art
+                                const art1 = `
+   _____    __  __   _____       _____  __   __   __   _______    __   __   
+  / ___ \\ /\\  /\\  /\\/\\____\\    /\\_____\\/_/\\ /\\_\\ /\\_\\/\\_______)\\ /\\_\\ /_/\\  
+ / /\\_/\\ \\\\ \\ \\/ / /\\/_ ( (   ( (_____/) ) \\ ( ( \\/_/\\(___  __\\/( ( (_) ) ) 
+/ /_/ (_\\ \\\\ \\  / /    \\ \\_\\   \\ \\__\\ /_/   \\ \\_\\ /\\_\\ / / /     \\ \\___/ /  
+\\ \\ )_/ / // /  \\ \\    / / /__ / /__/_\\ \\ \\   / // / /( ( (      / / _ \\ \\  
+ \\ \\/_\\/ // / /\\ \\ \\  ( (____(( (_____\\)_) \\ (_(( (_(  \\ \\ \\    ( (_( )_) ) 
+  \\ ____/ \\/__\\/__\\/   \\/____/ \\/_____/\\_\\/ \\/_/ \\/_/  /_/_/     \\/_/ \\_\/`;
+
+
+                                const art2 = `
+ _____      ______           _ _   _     
+|  _  |    |___  /          (_) | | |    
+| |/' |_  __  / /  ___ _ __  _| |_| |__  
+|  /| \\ \\/ / / /  / _ \\ '_ \\| | __| '_ \\ 
+\\ |_/ />  <./ /__|  __/ | | | | |_| | | |
+ \\___//_/\\_\\_____/\\___|_| |_|_|\\__|_| |_|`;
+
+                                const art3 = `
+
+________     ___    ___ ________  _______   ________   ___  _________  ___  ___     
+|\\   __  \\   |\\  \\  /  /|\\_____  \\|\\  ___ \\ |\\   ___  \\|\\  \\|\\___   ___\\\\  \\|\\  \\    
+\\ \\  \\|\\  \\  \\ \\  \\/  / /\\|___/  /\\ \\   __/|\\ \\  \\\\ \\  \\ \\  \\|___ \\  \\_\\ \\  \\\\\\  \\   
+ \\ \\  \\\\\\  \\  \\ \\    / /     /  / /\\ \\  \\_|/_\\ \\  \\\\ \\  \\ \\  \\   \\ \\  \\ \\ \\   __  \\  
+  \\ \\  \\\\\\  \\  /     \\/     /  /_/__\\ \\  \\_|\\ \\ \\  \\\\ \\  \\ \\  \\   \\ \\  \\ \\ \\  \\ \\  \\ 
+   \\ \\_______\\/  /\\   \\    |\\________\\ \\_______\\ \\__\\\\ \\__\\ \\__\\   \\ \\__\\ \\ \\__\\ \\__\\
+    \\|_______/__/ /\\ __\\    \\|_______|\\|_______|\\|__| \\|__|\\|__|    \\|__|  \\|__|\\|__|
+             |__|/ \\|__|`;
+
+                                const art4 = `
+ ██████╗ ██╗  ██╗███████╗███████╗███╗   ██╗██╗████████╗██╗  ██╗
+██╔═████╗╚██╗██╔╝╚══███╔╝██╔════╝████╗  ██║██║╚══██╔══╝██║  ██║
+██║██╔██║ ╚███╔╝   ███╔╝ █████╗  ██╔██╗ ██║██║   ██║   ███████║
+████╔╝██║ ██╔██╗  ███╔╝  ██╔══╝  ██║╚██╗██║██║   ██║   ██╔══██║
+╚██████╔╝██╔╝ ██╗███████╗███████╗██║ ╚████║██║   ██║   ██║  ██║
+ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝`;
+
+                                const art5 = `
+    ▄   ▄▄▄▄▄▄   ▄███▄      ▄   ▄█    ▄▄▄▄▀ ▄  █ 
+▀▄   █ ▀   ▄▄▀   █▀   ▀      █  ██ ▀▀▀ █   █   █ 
+  █ ▀   ▄▀▀   ▄▀ ██▄▄    ██   █ ██     █   ██▀▀█ 
+ ▄ █    ▀▀▀▀▀▀   █▄   ▄▀ █ █  █ ▐█    █    █   █ 
+█   ▀▄           ▀███▀   █  █ █  ▐   ▀        █  
+ ▀                       █   ██              ▀   `;
+
+                                const art6 = `
+ :::::::  :::    ::: ::::::::: :::::::::: ::::    ::: ::::::::::: ::::::::::: :::    ::: 
+:+:   :+: :+:    :+:      :+:  :+:        :+:+:   :+:     :+:         :+:     :+:    :+: 
++:+  :+:+  +:+  +:+      +:+   +:+        :+:+:+  +:+     +:+         +:+     +:+    +:+ 
++#+ + +:+   +#++:+      +#+    +#++:++#   +#+ +:+ +#+     +#+         +#+     +#++:++#++ 
++#+#  +#+  +#+  +#+    +#+     +#+        +#+  +#+#+#     +#+         +#+     +#+    +#+ 
+#+#   #+# #+#    #+#  #+#      #+#        #+#   #+#+#     #+#         #+#     #+#    #+# 
+ #######  ###    ### ######### ########## ###    #### ###########     ###     ###    ### 
+`;
+
+                                const art7 = `.         s                
+    .n~~%x.                     :~"""88hx.                               @88>      :8      .uef^"    
+  x88X   888.      uL   ..    .~      ?888x                 u.    u.     %8P      .88    :d88E       
+ X888X   8888L   .@88b  @88R  X       '8888k       .u     x@88k u@88c.    .      :888ooo \`888E       
+X8888X   88888  '"Y888k/"*P     H8h    8888X    ud8888.  ^"8888""8888"  .@88u  -*8888888  888E .z8k  
+88888X   88888X    Y888L       ?888~   8888   :888'8888.   8888  888R  ''888E\`   8888     888E~?888L 
+88888X   88888X     8888        %X   .X8*"    d888 '88%"   8888  888R    888E    8888     888E  888E 
+88888X   88888f     \`888N       .-"\`\`\`"tnx.    8888.+"      8888  888R    888E    8888     888E  888E 
+48888X   88888   .u./"888&     :~      8888.  8888L        8888  888R    888E   .8888Lu=  888E  888E 
+ ?888X   8888"  d888" Y888*"   ~       X8888  '8888c. .+  "*88*" 8888"   888&   ^%888*    888E  888E 
+  "88X   88*\`   \` "Y   Y"     ...      '8888L  "88888%      ""   'Y"     R888"\`    'Y"    m888N= 888> 
+    ^"==="\`                  '888k     '8888f    "YP'                     ""              \`Y"   888  
+                              8888>    <8888                                                   J88"  
+                              \`888>    X888~                                                   @%    
+                               '"88...x8""                                                   :"`;
+
+                                const art8 = `
+ _     _ ______ _______ __   _ _____ _______ _     _
+  \\___/   ____/ |______ | \\  |   |      |    |_____|
+ _/   \\_ /_____ |______ |  \\_| __|__    |    |     |
+                                                    
+`;
+
+const art9 = `
+     _/              _/_/_/_/_/                      _/    _/      _/       
+  _/  _/  _/    _/        _/      _/_/    _/_/_/        _/_/_/_/  _/_/_/    
+ _/  _/    _/_/        _/      _/_/_/_/  _/    _/  _/    _/      _/    _/   
+_/  _/  _/    _/    _/        _/        _/    _/  _/    _/      _/    _/    
+ _/    _/    _/  _/_/_/_/_/    _/_/_/  _/    _/  _/      _/_/  _/    _/`;
+                                const all_artworks = [
+                                    art1,
+                                    art2,
+                                    art3,
+                                    art4,
+                                    art5,
+                                    art6,
+                                    art7,
+                                    art8,
+                                    art9,
+                                ];
+                                let i = 0;
+
+                                // Set default showing artwork
+                                artwork.innerText = all_artworks[6];
+
+                                // Rotate artwork
+                                setInterval(() => {
+                                    artwork.innerText = all_artworks[i];
+                                    i = (i + 1) % all_artworks.length;
+                                }, 3000);
+                            });
+                        </script>
 
     </body>
     <%- include('templates/footer.ejs') %>

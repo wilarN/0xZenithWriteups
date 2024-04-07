@@ -99,11 +99,14 @@ app.post("/fullview", async (req, res) => {
         res.redirect("/");
     }
 
+    console.log(req.body);
+
     // Retrieve the post_id from the form data
     const post_id = req.body.post_id;
     const del_post_id = req.body.del_post_id;
 
     if (del_post_id) {
+        console.log(`Deleting post ${del_post_id}`);
         // Delete the post
         const result = await delete_writeup_by_id(del_post_id);
         if (result) {
@@ -245,6 +248,8 @@ app.post("/logout", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
+    // Destroy the session
+    req.session.destroy();
     res.redirect("/");
 });
 
