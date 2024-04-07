@@ -62,8 +62,12 @@ app.get('/', async (req, res) => {
 
         // Writeups
         const all_writeups = await fetch_all_writeups();
+        all_writeups.reverse();
         if (all_writeups) {
-            res.render('index.ejs', { session: req.session, writeups: all_writeups });
+            res.render('index.ejs', {
+                session: req.session,
+                writeups: all_writeups
+            });
         } else {
             res.render('index.ejs', { session: req.session });
         }
@@ -82,6 +86,9 @@ app.get("/writeups", async (req, res) => {
             console.log("Failed to fetch writeups or no writeups found");
             res.render("writeups.ejs", { session: req.session });
         } else {
+            // reverse the writeups so the newest is at the top
+            writeups.reverse();
+
             res.render("writeups.ejs", {
                 session: req.session,
                 writeups: writeups,
@@ -137,6 +144,10 @@ app.post("/fullview", async (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+    if(req.session.username) {
+        res.redirect("/");
+    }
+
     const username = req.body.username;
     const password = req.body.password;
     login_user(username, password, callback => {
@@ -160,6 +171,9 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/usrLogin", (req, res) => {
+    if(req.session.username) {
+        res.redirect("/");
+    }
     // User loginpage
     res.render("index.ejs",
         {
@@ -168,6 +182,9 @@ app.get("/usrLogin", (req, res) => {
 });
 
 app.get("/usrSignup", (req, res) => {
+    if(req.session.username) {
+        res.redirect("/");
+    }
     // User signup page
     res.render("index.ejs",
         {
@@ -197,6 +214,9 @@ app.get("/terminal", (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
+    if(req.session.username) {
+        res.redirect("/");
+    }
     const username = req.body.username;
     const password = req.body.password;
     create_new_user(username, password, callback => {

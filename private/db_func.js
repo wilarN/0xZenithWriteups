@@ -43,7 +43,7 @@ async function insert_new_blogpost(blog_post) {
             return false;
         } else {
             console.log("Inserting new blog post");
-            await db_conn.pool.execute('INSERT INTO blogs (title, content, author) VALUES (?, ?, ?)', [blog_post.title, blog_post.content, blog_post.author]);
+            await db_conn.pool.execute('INSERT INTO blogs (title, content, author, post_date) VALUES (?, ?, ?, ?)', [blog_post.title, blog_post.content, blog_post.author, new Date()]);
             return true;
         }
     } catch (err) {
@@ -53,6 +53,14 @@ async function insert_new_blogpost(blog_post) {
 }
 
 async function delete_writeup_by_id(id) {
+    // Check if its the author of the post
+    if(!req.session.username) {
+        return false;
+    }
+    const post = fetch_writeup_by_id(id);
+    if(post.author != req.session.username) {
+        return false;
+    }
     try {
         const connection = await db_conn.pool.getConnection();
         const [rows, fields] = await connection.execute('DELETE FROM blogs WHERE _id = ?', [id]);
