@@ -3,6 +3,8 @@ const Morgan = require('morgan');
 const BodyParser = require('body-parser');
 const stream = require('stream');
 const fs = require('fs');
+const helmet = require('helmet');
+const compression = require('compression');
 const session = require('express-session');
 const rateLimit = require('express-rate-limit');
 const { Writable } = stream;
@@ -21,6 +23,16 @@ const PORT = 9999;
 // Body parser
 app.use(BodyParser.urlencoded({ extended: true }));
 
+// Helmet
+app.use(helmet(
+    {
+        contentSecurityPolicy: false,
+    }
+));
+
+// Compression
+app.use(compression());
+
 // Morgan
 app.use(Morgan('dev'));
 app.set('view engine', 'ejs');
@@ -38,11 +50,9 @@ app.use(session
 
 // Rate limiter
 const limiter = rateLimit({
-    window_ms: 15 * 60 * 1000, // 15 min
-    limit: 100, // limit each IP to 100 requests per window_ms
-    standard_headers: true,
-    legacy_headers: false,
-})
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 100,
+  });
 
 app.use(limiter);
 
