@@ -1,0 +1,18 @@
+<%- include('templates/head', {title: "Writeups" }) %>
+
+    <body>
+        <%- include('templates/header') %>
+            <div class="main-container">
+                <% if(locals.all_users) { %>
+                    <div class="all-users-container">
+                        <h2>All Users</h2>
+                        <ul>
+                            <% locals.all_users.forEach(user => { %>
+                                <p><%= user %></p>
+                                <% }) %>
+                        </ul>
+                    </div>
+                    <% } %>
+            </div>
+    </body>
+    <%- include('templates/footer.ejs') %>

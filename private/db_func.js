@@ -7,8 +7,8 @@ const mysql = require('mysql2/promise');
 class db {
     constructor() {
         this.pool = mysql.createPool({
-            host: '192.168.1.100',
-            user: 'unmanaged_connector',
+            host: 'localhost',
+            user: 'root',
             password: '',
             database: 'writeups_gothenburg_central_V_231',
             waitForConnections: true,
@@ -52,13 +52,10 @@ async function insert_new_blogpost(blog_post) {
     }
 }
 
-async function delete_writeup_by_id(id) {
+async function delete_writeup_by_id(id, user) {
     // Check if its the author of the post
-    if(!req.session.username) {
-        return false;
-    }
-    const post = fetch_writeup_by_id(id);
-    if(post.author != req.session.username) {
+    const post = await fetch_writeup_by_id(id);
+    if (post.author != user) {
         return false;
     }
     try {
@@ -138,6 +135,22 @@ async function create_new_user(username, password, callback) {
     });
 }
 
+async function fetch_all_users(){
+    try {
+        const connection = await db_conn.pool.getConnection();
+        const [all_users, fields] = await connection.execute('SELECT * FROM users');
+        connection.release();
+        if (all_users) {
+            return all_users;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+
 async function user_exists(username, callback) {
     try {
         const connection = await db_conn.pool.getConnection();
@@ -160,7 +173,6 @@ async function fetch_all_writeups() {
         const [all_posts, fields] = await db_conn.pool.execute('SELECT * FROM blogs');
         connection.release();
         if (all_posts) {
-            console.log(all_posts);
             return all_posts;
         } else {
             return false;
@@ -187,6 +199,22 @@ async function fetch_writeup_by_id(id) {
     }
 }
 
+async function is_admin(username) {
+    try {
+        const connection = await db_conn.pool.getConnection();
+        const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ? AND admin = 1', [username]);
+        connection.release();
+        if (rows.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+
 module.exports = {
     insert_new_blogpost,
     create_new_user,
@@ -194,4 +222,5 @@ module.exports = {
     fetch_all_writeups,
     fetch_writeup_by_id,
     delete_writeup_by_id,
+    fetch_all_users,
 }

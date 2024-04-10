@@ -180,6 +180,11 @@ img {
 }
 .fullview-writeup .fullview-writeup-inner {
   padding: 30px;
+  color: white;
+  font-size: 1.2rem;
+}
+.fullview-writeup .fullview-writeup-inner h2, .fullview-writeup .fullview-writeup-inner p {
+  color: white;
 }
 .fullview-writeup .fullview-writeup-inner h2 {
   padding: 20px;
@@ -222,13 +227,13 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #b60000;
   text-shadow: 0px 0px 4px #b60000;
   width: 90%;
   margin: 10px;
   border: 2px solid #b60000;
   border-radius: 10px;
   transition-duration: 0.4s;
+  color: white;
 }
 .writeup h2 {
   padding: 20px;

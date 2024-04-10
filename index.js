@@ -14,6 +14,7 @@ const { insert_new_blogpost,
     fetch_all_writeups,
     fetch_writeup_by_id,
     delete_writeup_by_id,
+    fetch_all_users
 } = require('./private/db_func.js');
 const { blog_post } = require('./private/blogpost.js');
 
@@ -116,20 +117,25 @@ app.post("/fullview", async (req, res) => {
         res.redirect("/");
     }
 
-    console.log(req.body);
-
     // Retrieve the post_id from the form data
     const post_id = req.body.post_id;
     const del_post_id = req.body.del_post_id;
 
     if (del_post_id) {
         console.log(`Deleting post ${del_post_id}`);
+
         // Delete the post
-        const result = await delete_writeup_by_id(del_post_id);
+        console.log(`Deleting post ${del_post_id}, User requesting delete: ${req.session.username}`)
+        const result = await delete_writeup_by_id(del_post_id, req.session.username);
+        console.log(result);
         if (result) {
             console.log(`Post ${del_post_id} deleted successfully`);
+            res.redirect("/writeups");
+            return;
         } else {
             console.log(`Failed to delete post ${del_post_id}`);
+            res.redirect("/writeups");
+            return;
         }
     }
 
@@ -269,6 +275,25 @@ app.post("/createWriteup", async (req, res) => {
     }
 
     res.redirect("/writeups");
+});
+
+// All users
+app.get("/allusers", async (req, res) => {
+    if (!req.session.username) {
+        res.redirect("/");
+    }
+
+    // Fetch all users
+    const all_users = await fetch_all_users();
+    console.log(all_users);
+    if (all_users) {
+        res.render("allusers.ejs", {
+            session: req.session,
+            users: all_users
+        });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.post("/logout", (req, res) => {
