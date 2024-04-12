@@ -3,16 +3,47 @@
     <body>
         <%- include('templates/header') %>
             <div class="main-container">
-                <% if(locals.all_users) { %>
+                <% if(locals.users) { %>
                     <div class="all-users-container">
-                        <h2>All Users</h2>
-                        <ul>
-                            <% locals.all_users.forEach(user => { %>
-                                <p><%= user %></p>
-                                <% }) %>
-                        </ul>
+                        <h2>All Users:</h2>
+                        <div class="all-users">
+                            <% for(let i=0; i < users.length; i++) { %>
+                                <div class="user-overview">
+                                    <h3>
+                                        <%= users[i].username %>
+                                    </h3>
+                                    <div class="more-information">
+                                        <p>
+                                            <%= users[i].role %>
+                                        </p>
+                                        <p>
+                                            <%= users[i].post_amount %>
+                                        </p>
+                                        <p>
+                                            <%= users[i].reg_date %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
                     </div>
-                    <% } %>
+                    <% } else { %>
+                        <h2>Could not fetch users...</h2>
+                        <% } %>
             </div>
+            <script>
+                const all_user_containers = document.querySelectorAll('.user-overview');
+                for(let i = 0; i < all_user_containers.length; i++) {
+                    all_user_containers[i].addEventListener('mouseover', () => {
+                        all_user_containers[i].style.height = '500px';
+                        all_user_containers[i].querySelector('.more-information').style.opacity = 1;
+                    });
+                    all_user_containers[i].addEventListener('mouseout', () => {
+                        all_user_containers[i].style.height = '200px';
+                        all_user_containers[i].querySelector('.more-information').style.opacity = 0;
+                    });
+                }
+
+            </script>
     </body>
     <%- include('templates/footer.ejs') %>
