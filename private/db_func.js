@@ -199,6 +199,18 @@ async function fetch_writeup_by_id(id) {
     }
 }
 
+async function fetch_amount_of_writeups_by_user(username) {
+    try {
+        const connection = await db_conn.pool.getConnection();
+        const [rows, fields] = await connection.execute('SELECT * FROM blogs WHERE author = ?', [username]);
+        connection.release();
+        return rows.length;
+    } catch (err) {
+        console.error(err);
+        return 0;
+    }
+}
+
 async function is_admin(username) {
     try {
         const connection = await db_conn.pool.getConnection();

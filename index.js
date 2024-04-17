@@ -285,11 +285,14 @@ app.get("/allusers", async (req, res) => {
 
     // Fetch all users
     const all_users = await fetch_all_users();
+    const all_writeups = await fetch_all_writeups();
     console.log(all_users);
+    console.log(all_writeups);
     if (all_users) {
         res.render("allusers.ejs", {
             session: req.session,
-            users: all_users
+            users: all_users,
+            all_writeups: all_writeups
         });
     } else {
         res.redirect("/");

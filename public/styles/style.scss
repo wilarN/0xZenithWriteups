@@ -1,13 +1,22 @@
 @import url("fonts/OTF/FantasqueSansMono-Regular.otf");
 
-$main-color: #000000;
-$main-color-light: #272727;
-$secondary-color: #e90000;
+// $main-color: #000000;
+// $main-color-light: #272727;
+// $secondary-color: #e90000;
+// $tertiary-color: #00ff15;
+// $quaternary-color: lighten($secondary-color, 10%);
+// // $quinary-color: #001277;
+// $quinary-color: darken($secondary-color, 10%);
+// $senary-color: #24243e;
+
+$main-color: #ffffff;
+$main-color-light: #ffffff;
+$secondary-color: #000000;
 $tertiary-color: #00ff15;
 $quaternary-color: lighten($secondary-color, 10%);
 // $quinary-color: #001277;
 $quinary-color: darken($secondary-color, 10%);
-$senary-color: #24243e;
+$senary-color: #e1e1eb;
 
 * {
     padding: 0px;
@@ -345,7 +354,7 @@ body {
     .main-container {
         @include flexCenter;
         flex-direction: column;
-        color: $secondary-color;
+        color: white;
         height: 100dvh;
 
         // Main content when user is logged in
@@ -431,7 +440,7 @@ body {
                                 border-radius: 5px;
                                 border: 1px solid $secondary-color;
                                 background: $main-color;
-                                color: white;
+                                color: $secondary-color;
                                 text-align: left;
                             }
 
@@ -442,7 +451,7 @@ body {
                                 border-radius: 5px;
                                 border: 1px solid $secondary-color;
                                 background: $main-color;
-                                color: white;
+                                color:  $secondary-color;
                                 text-align: left;
                                 max-width: 80%;
                                 min-width: 30%;
@@ -499,22 +508,41 @@ body {
                 @include flexCenter;
                 justify-content: start;
                 align-items: start;
+                flex-wrap: wrap;
                 width: 100%;
-
                 .user-overview {
                     margin: 20px;
+                    text-align: center;
                     padding: 20px;
-                    height: 200px;
+                    height: 100px;
+                    min-width: 350px;
+                    max-width: 350px;
                     border-radius: 5px;
                     border: 2px solid $secondary-color;
                     margin: 50px;
                     color: white;
+                    overflow: hidden;
+                    transition-duration: 0.5s;
 
-                    transition-duration: 0.3s;
+                    .username-container{
+                        color: white;
+                        text-shadow: 0px 0px 4px $quinary-color;
+                        font-size: 2rem;
+                        text-transform: capitalize;
+                        font-style: italic;
+                    }
+
+                    .user-role{
+                        color: $quinary-color;
+                        text-shadow: 0px 0px 4px $quinary-color;
+                        font-size: 1.5rem;
+                        text-transform: capitalize;
+                        font-style: italic;
+                    }
 
                     .more-information{
                         opacity: 0;
-                        transition-duration: 0.5s;
+                        transition-duration: 0.2s;
                     }
 
                     &:hover{
@@ -594,7 +622,6 @@ body {
                         margin: 50px;
                         display: flex;
                         flex-direction: column;
-
                         .tabcontent {
                             display: none;
                             padding: 6px 12px;
@@ -684,7 +711,7 @@ body {
                 border-radius: 5px;
                 border: 1px solid $secondary-color;
                 background: $main-color;
-                color: white;
+                color: $secondary-color;
                 text-align: center;
                 transition-duration: 0.4s;
             }
@@ -709,7 +736,7 @@ body {
 
         a {
             text-decoration: none;
-            color: $quinary-color;
+            color: red;
             transition-duration: 0.3s;
             text-shadow: none;
         }
