@@ -23,34 +23,34 @@
 #signupButton {
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid black;
-  color: black;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 4px #b60000;
 }
 
 #signupButton:hover {
-  background: black;
+  background: #b60000;
   color: white;
 }
 
 #main-highlight2 {
-  color: #1a1a1a;
-  text-shadow: 0px 0px 4px #1a1a1a;
+  color: #ff1d1d;
+  text-shadow: 0px 0px 4px #ff1d1d;
 }
 
 ::-moz-selection {
-  background: #1a1a1a;
+  background: #ff1d1d;
   color: white;
 }
 
 ::selection {
-  background: #1a1a1a;
+  background: #ff1d1d;
   color: white;
 }
 
 ::moz-selection {
-  background: #1a1a1a;
+  background: #ff1d1d;
   color: white;
 }
 
@@ -113,14 +113,14 @@
   width: 100%;
   height: 40px;
   text-align: center;
-  color: black;
-  text-shadow: 0px 0px 4px black;
+  color: #b60000;
+  text-shadow: 0px 0px 4px #b60000;
   margin-top: 20px;
 }
 
 a {
   text-decoration: none;
-  color: #000000;
+  color: #e90000;
   transition-duration: 0.3s;
 }
 
@@ -163,7 +163,7 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: black;
+  color: #b60000;
   width: 100%;
   /* Remove max-height to allow the container to expand based on content */
   /* max-height: 90%; */
@@ -172,10 +172,10 @@ img {
   overflow-x: hidden;
   /* Scroll */
   scrollbar-width: thin;
-  scrollbar-color: #1a1a1a #ffffff;
+  scrollbar-color: #ff1d1d #000000;
   margin: 10px;
   border-radius: 10px;
-  box-shadow: 0 0 10px 3px #1a1a1a;
+  box-shadow: 0 0 10px 3px #ff1d1d;
   transition-duration: 0.4s;
 }
 .fullview-writeup .fullview-writeup-inner {
@@ -195,14 +195,22 @@ img {
   padding: 20px;
   margin: 10px;
 }
+.fullview-writeup .fullview-writeup-inner img {
+  transition-duration: 0.4s;
+  border-radius: 20px;
+}
+.fullview-writeup .fullview-writeup-inner img:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
 
 .backhometowriteups {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: black;
-  text-shadow: 0px 0px 4px #1a1a1a;
+  color: #b60000;
+  text-shadow: 0px 0px 4px #ff1d1d;
   width: 90%;
   margin: 10px;
   border-radius: 10px;
@@ -211,14 +219,14 @@ img {
 }
 .backhometowriteups a {
   padding: 20px;
-  color: #1a1a1a;
-  text-shadow: 0px 0px 4px #1a1a1a;
+  color: #ff1d1d;
+  text-shadow: 0px 0px 4px #ff1d1d;
   transition-duration: 0.3s;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #ff1d1d;
   border-radius: 5px;
 }
 .backhometowriteups a:hover {
-  background: #1a1a1a;
+  background: #ff1d1d;
   color: white;
   scale: 1.1;
 }
@@ -228,10 +236,10 @@ img {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 4px #b60000;
   width: 90%;
   margin: 10px;
-  border: 2px solid black;
+  border: 2px solid #b60000;
   border-radius: 10px;
   transition-duration: 0.4s;
   color: white;
@@ -241,16 +249,16 @@ img {
 }
 
 .writeup:hover {
-  border: 2px solid #000000;
-  box-shadow: 0 0 10px 3px #000000;
+  border: 2px solid #e90000;
+  box-shadow: 0 0 10px 3px #e90000;
   rotate: 2deg;
   cursor: pointer;
   scale: 1.05;
 }
 
 .writeup-footer {
-  color: #1a1a1a;
-  text-shadow: 0px 0px 4px #1a1a1a;
+  color: #ff1d1d;
+  text-shadow: 0px 0px 4px #ff1d1d;
   text-align: center;
   padding: 10px;
 }
@@ -258,23 +266,23 @@ img {
   padding: 10px 20px;
   background: none;
   color: white;
-  border: 2px solid #1a1a1a;
+  border: 2px solid #ff1d1d;
   border-radius: 10px;
   transition-duration: 0.4s;
 }
 .writeup-footer form input[type=submit]:hover {
   color: white;
   scale: 1.05;
-  border: 2px solid black;
+  border: 2px solid #b60000;
   cursor: pointer;
 }
 
 .not-allowed-div {
-  background: #ffffff;
-  color: #000000;
+  background: #000000;
+  color: #e90000;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px 3px #000000;
+  box-shadow: 0 0 10px 3px #e90000;
   transition-duration: 0.4s;
   display: flex;
   justify-content: center;
@@ -283,13 +291,13 @@ img {
 }
 .not-allowed-div a {
   text-decoration: none;
-  color: black;
+  color: #b60000;
   transition-duration: 0.3s;
   text-shadow: none;
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #000000;
   width: 75dvw;
   margin: auto;
 }
@@ -303,11 +311,11 @@ body .main-header nav ul {
   justify-content: space-around;
   list-style: none;
   padding: 20px;
-  border-bottom: 2px solid #000000;
-  border-left: 2px solid #000000;
-  border-right: 2px solid #000000;
+  border-bottom: 2px solid #e90000;
+  border-left: 2px solid #e90000;
+  border-right: 2px solid #e90000;
   border-radius: 5px;
-  box-shadow: 0 4px 4px -3px #000000;
+  box-shadow: 0 4px 4px -3px #e90000;
 }
 body .main-header nav ul li a {
   text-decoration: none;
@@ -315,7 +323,7 @@ body .main-header nav ul li a {
   transition-duration: 0.3s;
 }
 body .main-header nav ul li a:hover {
-  color: #000000;
+  color: #e90000;
 }
 body .main-container {
   display: flex;
@@ -336,20 +344,20 @@ body .main-container .main-content-container {
 }
 body .main-container .main-content-container .main-cont-inner-wrapper {
   margin-top: 80px;
-  background: #ffffff;
+  background: #272727;
   border-radius: 5px;
-  box-shadow: 0 0 10px 3px #000000;
+  box-shadow: 0 0 10px 3px #e90000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner {
   margin: 20px;
   display: flex;
   flex-direction: column;
-  background: #e6e6e6;
+  background: #0e0e0e;
   /* Style the buttons that are used to open the tab content */
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab {
   overflow: hidden;
-  background-color: #f2f2f2;
+  background-color: #1a1a1a;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -363,13 +371,13 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  border: 1px solid black;
+  border: 1px solid #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button:hover {
-  background-color: black;
+  background-color: #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .tab button.active {
-  background-color: black;
+  background-color: #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
   margin: 50px;
@@ -395,9 +403,9 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
+  border: 1px solid #e90000;
+  background: #000000;
+  color: #e90000;
   text-align: left;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post textarea {
@@ -405,9 +413,9 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
+  border: 1px solid #e90000;
+  background: #000000;
+  color: #e90000;
   text-align: left;
   max-width: 80%;
   min-width: 30%;
@@ -417,13 +425,13 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button {
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid black;
-  color: black;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 4px #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button:hover {
-  background: black;
+  background: #b60000;
   color: white;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form {
@@ -435,13 +443,13 @@ body .main-container .main-content-container .main-cont-inner-wrapper .inner-inn
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form input[type=submit] {
   padding: 10px 20px;
   width: 10%;
-  border: 2px solid black;
-  color: black;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 4px #b60000;
 }
 body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form input[type=submit]:hover {
-  border: 2px solid #1a1a1a;
+  border: 2px solid #ff1d1d;
   color: white;
   scale: 1.1;
   cursor: pointer;
@@ -467,7 +475,7 @@ body .main-container .all-users-container .all-users .user-overview {
   min-width: 350px;
   max-width: 350px;
   border-radius: 5px;
-  border: 2px solid #000000;
+  border: 2px solid #e90000;
   margin: 50px;
   color: white;
   overflow: hidden;
@@ -475,14 +483,14 @@ body .main-container .all-users-container .all-users .user-overview {
 }
 body .main-container .all-users-container .all-users .user-overview .username-container {
   color: white;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 4px #b60000;
   font-size: 2rem;
   text-transform: capitalize;
   font-style: italic;
 }
 body .main-container .all-users-container .all-users .user-overview .user-role {
-  color: black;
-  text-shadow: 0px 0px 4px black;
+  color: #b60000;
+  text-shadow: 0px 0px 4px #b60000;
   font-size: 1.5rem;
   text-transform: capitalize;
   font-style: italic;
@@ -491,9 +499,26 @@ body .main-container .all-users-container .all-users .user-overview .more-inform
   opacity: 0;
   transition-duration: 0.2s;
 }
-body .main-container .all-users-container .all-users .user-overview:hover {
+body .main-container .all-users-container .all-users .user-overview .more-information h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e90000;
+  border: 2px solid white;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+body .main-container .all-users-container .all-users .user-overview .more-information h2:hover {
   background: #000000;
-  box-shadow: 0 0 10px 3px #000000;
+  color: white;
+  cursor: pointer;
+  scale: 1.1;
+}
+body .main-container .all-users-container .all-users .user-overview:hover {
+  background: #e90000;
+  box-shadow: 0 0 10px 3px #e90000;
   cursor: pointer;
 }
 body .main-container-terminal {
@@ -501,7 +526,7 @@ body .main-container-terminal {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  color: #000000;
+  color: #e90000;
   height: 100vh;
   justify-content: start;
 }
@@ -516,22 +541,22 @@ body .main-container-terminal .main-content-container {
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper {
   margin-top: 80px;
-  background: #ffffff;
+  background: #272727;
   border-radius: 5px;
-  box-shadow: 0 0 10px 3px #000000;
+  box-shadow: 0 0 10px 3px #e90000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner {
   margin: 20px;
   display: flex;
   flex-direction: column;
-  background: #e6e6e6;
+  background: #0e0e0e;
   /* Style the buttons that are used to open the tab content */
   /* Change background color of buttons on hover */
   /* Create an active/current tablink class */
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .tab {
   overflow: hidden;
-  background-color: #f2f2f2;
+  background-color: #1a1a1a;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -545,13 +570,13 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  border: 1px solid black;
+  border: 1px solid #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .tab button:hover {
-  background-color: black;
+  background-color: #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .tab button.active {
-  background-color: black;
+  background-color: #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
   margin: 50px;
@@ -574,8 +599,8 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
+  border: 1px solid #e90000;
+  background: #000000;
   color: white;
   text-align: left;
 }
@@ -584,8 +609,8 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
+  border: 1px solid #e90000;
+  background: #000000;
   color: white;
   text-align: left;
   max-width: 80%;
@@ -596,13 +621,13 @@ body .main-container-terminal .main-content-container .main-cont-inner-wrapper .
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button {
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid black;
-  color: black;
+  border: 2px solid #b60000;
+  color: #b60000;
   transition-duration: 0.3s;
-  text-shadow: 0px 0px 4px black;
+  text-shadow: 0px 0px 4px #b60000;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post button:hover {
-  background: black;
+  background: #b60000;
   color: white;
 }
 body .main-container-terminal .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form {
@@ -618,7 +643,7 @@ body .login {
   width: 30vw;
   border-radius: 10px;
   height: 50vh;
-  box-shadow: 0 0 10px 3px #000000;
+  box-shadow: 0 0 10px 3px #e90000;
   transition-duration: 0.4s;
   display: flex;
   justify-content: center;
@@ -639,15 +664,15 @@ body .login form input {
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
+  border: 1px solid #e90000;
+  background: #000000;
+  color: #e90000;
   text-align: center;
   transition-duration: 0.4s;
 }
 body .create-account form input:focus,
 body .login form input:focus {
-  border: 1px solid #1a1a1a;
+  border: 1px solid #ff1d1d;
   /* Assuming $quaternary-color is a variable holding the desired color */
   scale: 1.04;
 }
@@ -657,7 +682,7 @@ body .login form input[type=submit] {
 }
 body .create-account form input[type=submit]:hover,
 body .login form input[type=submit]:hover {
-  border: 1px solid #1a1a1a;
+  border: 1px solid #ff1d1d;
   color: white;
   scale: 1.1;
   cursor: pointer;
@@ -671,7 +696,7 @@ body .login a {
 }
 body .create-account:hover,
 body .login:hover {
-  box-shadow: 0 0 10px 10px #1a1a1a;
+  box-shadow: 0 0 10px 10px #ff1d1d;
 }
 
 footer {
@@ -693,14 +718,14 @@ footer #logoutForm input {
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  border: 1px solid #000000;
-  background: #ffffff;
+  border: 1px solid #e90000;
+  background: #000000;
   color: white;
   text-align: center;
   transition-duration: 0.4s;
 }
 footer #logoutForm input:hover {
-  border: 1px solid #1a1a1a;
+  border: 1px solid #ff1d1d;
   scale: 1.1;
   cursor: pointer;
 }
@@ -750,42 +775,42 @@ footer #logoutForm input:hover {
 }
 @keyframes MovingBorderAnimation {
   0% {
-    border: 2px solid #1a1a1a;
+    border: 2px solid #ff1d1d;
   }
   20% {
-    border: 2px solid #1a1a1a;
+    border: 2px solid #1dffff;
   }
   40% {
     border: 2px solid rgb(0, 247, 0);
   }
   60% {
-    border: 2px solid #000000;
+    border: 2px solid #e90000;
   }
   80% {
     border: 2px solid #00ff15;
   }
   100% {
-    border: 2px solid #1a1a1a;
+    border: 2px solid #ff1d1d;
   }
 }
 @keyframes MovingBorderAnimationBottom {
   0% {
-    border-bottom: 2px solid #1a1a1a;
+    border-bottom: 2px solid #ff1d1d;
   }
   20% {
-    border-bottom: 2px solid #1a1a1a;
+    border-bottom: 2px solid #1dffff;
   }
   40% {
     border-bottom: 2px solid rgb(0, 247, 0);
   }
   60% {
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid #e90000;
   }
   80% {
     border-bottom: 2px solid #00ff15;
   }
   100% {
-    border-bottom: 2px solid #1a1a1a;
+    border-bottom: 2px solid #ff1d1d;
   }
 }
 @keyframes fadeEffect {

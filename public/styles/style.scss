@@ -1,22 +1,22 @@
 @import url("fonts/OTF/FantasqueSansMono-Regular.otf");
 
-// $main-color: #000000;
-// $main-color-light: #272727;
-// $secondary-color: #e90000;
-// $tertiary-color: #00ff15;
-// $quaternary-color: lighten($secondary-color, 10%);
-// // $quinary-color: #001277;
-// $quinary-color: darken($secondary-color, 10%);
-// $senary-color: #24243e;
-
-$main-color: #ffffff;
-$main-color-light: #ffffff;
-$secondary-color: #000000;
+$main-color: #000000;
+$main-color-light: #272727;
+$secondary-color: #e90000;
 $tertiary-color: #00ff15;
 $quaternary-color: lighten($secondary-color, 10%);
 // $quinary-color: #001277;
 $quinary-color: darken($secondary-color, 10%);
-$senary-color: #e1e1eb;
+$senary-color: #24243e;
+
+// $main-color: #ffffff;
+// $main-color-light: #ffffff;
+// $secondary-color: #000000;
+// $tertiary-color: #00ff15;
+// $quaternary-color: lighten($secondary-color, 10%);
+// // $quinary-color: #001277;
+// $quinary-color: darken($secondary-color, 10%);
+// $senary-color: #e1e1eb;
 
 * {
     padding: 0px;
@@ -213,6 +213,15 @@ img {
         p {
             padding: 20px;
             margin: 10px
+        }
+
+        img{
+            transition-duration: 0.4s;
+            border-radius: 20px;
+        }
+        img:hover{
+            cursor: pointer;
+            scale: 1.1;
         }
     }
 
@@ -543,6 +552,22 @@ body {
                     .more-information{
                         opacity: 0;
                         transition-duration: 0.2s;
+
+                        h2{
+                            @include flexCenter;
+                            background: $secondary-color;
+                            border: 2px solid white;
+                            padding: 10px;
+                            color: white;
+                            border-radius: 10px;
+                            transition-duration: 0.2s;
+                        }
+                        h2:hover{
+                            background: $main-color;
+                            color: white;
+                            cursor: pointer;
+                            scale: 1.1;
+                        }
                     }
 
                     &:hover{
