@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { blog_post } = require('./blogpost.js');
 const mysql = require('mysql2/promise');
 
-// If object of db is not created, create new class of db
+//* If object of db is not created, create new class of db
 class db {
     constructor() {
         this.pool = mysql.createPool({
@@ -18,6 +18,7 @@ class db {
     }
 }
 
+// Create new object of db
 db_conn = new db();
 
 // Create new db if it doesnt exist
@@ -35,6 +36,7 @@ function db_validation() {
 }
 
 async function insert_new_blogpost(blog_post) {
+    // Check if the post already exists
     try {
         const row = await fetch_post_by_name(blog_post.title);
 
@@ -73,6 +75,7 @@ async function delete_writeup_by_id(id, user) {
 }
 
 async function fetch_post_by_name(title, callback) {
+    // Fetch the post by its title
     try {
         const connection = await db_conn.pool.getConnection(); // Get a connection from the pool
         const [rows, fields] = await connection.execute('SELECT * FROM blogs WHERE title = ?', [title]);
@@ -85,6 +88,7 @@ async function fetch_post_by_name(title, callback) {
 }
 
 async function login_user(username, password, callback) {
+    //* Main login function, checks if the user exists and if the password is correct
     try {
         const connection = await db_conn.pool.getConnection();
         const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ?', [username]);
@@ -105,7 +109,7 @@ async function login_user(username, password, callback) {
 }
 
 async function create_new_user(username, password, callback) {
-    // Check if the user already exists
+    //* Check if the user already exists
     user_exists(username, async (exists) => {
         if (exists) {
             console.log(`User ${username} already exists, cannot create a new user with the same username`);
@@ -136,6 +140,7 @@ async function create_new_user(username, password, callback) {
 }
 
 async function fetch_all_users(){
+    //* Fetch all users from the database
     try {
         const connection = await db_conn.pool.getConnection();
         const [all_users, fields] = await connection.execute('SELECT * FROM users');
@@ -152,6 +157,7 @@ async function fetch_all_users(){
 }
 
 async function user_exists(username, callback) {
+    //* Check if the user exists in the database
     try {
         const connection = await db_conn.pool.getConnection();
         const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ?', [username]);
@@ -168,6 +174,7 @@ async function user_exists(username, callback) {
 }
 
 async function fetch_all_writeups() {
+    //* Fetch all posts from the database
     try {
         const connection = await db_conn.pool.getConnection();
         const [all_posts, fields] = await db_conn.pool.execute('SELECT * FROM blogs');
@@ -184,6 +191,7 @@ async function fetch_all_writeups() {
 }
 
 async function fetch_writeup_by_id(id) {
+    //* Fetch the post by its id
     try {
         const connection = await db_conn.pool.getConnection();
         const [post, fields] = await connection.execute('SELECT * FROM blogs WHERE _id = ?', [id]);
@@ -199,7 +207,27 @@ async function fetch_writeup_by_id(id) {
     }
 }
 
+async function update_writeup_by_id(id, title, content) {
+    try{
+        // Update the post
+        console.log("AOAO", id, title, content);
+        const connection = await db_conn.pool.getConnection();
+        const [rows, fields] = await connection.execute('UPDATE blogs SET title = ?, content = ? WHERE _id = ?', [title, content, id]);
+        connection.release();
+        if (rows.affectedRows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch(err){
+        // Catch potential errors
+        console.error(err);
+        return false;
+    }
+}
+
 async function fetch_amount_of_writeups_by_user(username) {
+    //* Fetch the amount of writeups by a specific user 
     try {
         const connection = await db_conn.pool.getConnection();
         const [rows, fields] = await connection.execute('SELECT * FROM blogs WHERE author = ?', [username]);
@@ -212,6 +240,7 @@ async function fetch_amount_of_writeups_by_user(username) {
 }
 
 async function is_admin(username) {
+    //* Check if the user is an admin
     try {
         const connection = await db_conn.pool.getConnection();
         const [rows, fields] = await connection.execute('SELECT * FROM users WHERE username = ? AND admin = 1', [username]);
@@ -227,6 +256,7 @@ async function is_admin(username) {
     }
 }
 
+// Export the functions
 module.exports = {
     insert_new_blogpost,
     create_new_user,
@@ -235,4 +265,7 @@ module.exports = {
     fetch_writeup_by_id,
     delete_writeup_by_id,
     fetch_all_users,
+    fetch_amount_of_writeups_by_user,
+    is_admin,
+    update_writeup_by_id,
 }

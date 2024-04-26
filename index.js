@@ -14,7 +14,8 @@ const { insert_new_blogpost,
     fetch_all_writeups,
     fetch_writeup_by_id,
     delete_writeup_by_id,
-    fetch_all_users
+    fetch_all_users,
+    update_writeup_by_id
 } = require('./private/db_func.js');
 const { blog_post } = require('./private/blogpost.js');
 
@@ -120,6 +121,8 @@ app.post("/fullview", async (req, res) => {
     // Retrieve the post_id from the form data
     const post_id = req.body.post_id;
     const del_post_id = req.body.del_post_id;
+    const edit_post_id = req.body.edit_post_id;
+    const edit_post_confirm = req.body.edit_post_confirm;
 
     if (del_post_id) {
         console.log(`Deleting post ${del_post_id}`);
@@ -136,6 +139,47 @@ app.post("/fullview", async (req, res) => {
             console.log(`Failed to delete post ${del_post_id}`);
             res.redirect("/writeups");
             return;
+        }
+    }else if(edit_post_id){
+        // Fetch the post information
+        const post = await fetch_writeup_by_id(edit_post_id);
+
+        // Edit the post
+        console.log(`Editing post ${edit_post_id}, User requesting edit: ${req.session.username}`)
+        // Send user to edit.ejs
+        res.render("edit.ejs", {
+            session: req.session,
+            post_id: edit_post_id,
+            post: post
+        });
+        return;
+    }else if(edit_post_confirm){
+        // Confirm the edit
+
+        // Fetch the post information
+        const post = await fetch_writeup_by_id(edit_post_confirm);
+
+        // 
+        const post_id = req.body.post_id;
+
+        const edit_title = req.body.edit_title;
+        const edit_content = req.body.edit_content;
+        console.log(`Edit title: ${edit_title}`);
+        console.log(`Edit content: ${edit_content}`);
+
+        if(edit_title || edit_content){
+            // Update the post
+            console.log(`Updating post ${edit_post_confirm}, User requesting edit: ${req.session.username}`)
+            const result = await update_writeup_by_id(edit_post_confirm, edit_title, edit_content);
+            if(result){
+                console.log(`Post ${edit_post_confirm} updated successfully`);
+                res.redirect("/writeups");
+                return;
+            }else{
+                console.log(`Failed to update post ${edit_post_confirm}`);
+                res.redirect("/writeups");
+                return;
+            }
         }
     }
 

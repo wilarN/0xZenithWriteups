@@ -203,6 +203,51 @@ img {
   cursor: pointer;
   scale: 1.1;
 }
+.fullview-writeup .fullview-writeup-inner form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.fullview-writeup .fullview-writeup-inner form input {
+  width: 50%;
+  padding: 10px;
+  margin: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #e90000;
+  background: #000000;
+  color: white;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+.fullview-writeup .fullview-writeup-inner form input[type=submit] {
+  padding: 10px 20px;
+  background: none;
+  color: white;
+  border: 2px solid #ff1d1d;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+}
+.fullview-writeup .fullview-writeup-inner form input[type=submit]:hover {
+  background: #ff1d1d;
+  color: white;
+  scale: 1.1;
+}
+.fullview-writeup .fullview-writeup-inner form textarea {
+  width: 80%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #e90000;
+  background: #000000;
+  color: white;
+  text-align: left;
+  transition-duration: 0.4s;
+  max-width: 80%;
+  min-width: 30%;
+}
 
 .backhometowriteups {
   display: flex;
@@ -666,7 +711,7 @@ body .login form input {
   border-radius: 5px;
   border: 1px solid #e90000;
   background: #000000;
-  color: #e90000;
+  color: white;
   text-align: center;
   transition-duration: 0.4s;
 }

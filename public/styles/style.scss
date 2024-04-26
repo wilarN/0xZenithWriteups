@@ -223,6 +223,53 @@ img {
             cursor: pointer;
             scale: 1.1;
         }
+
+        form{
+            @include flexCenter();
+            flex-direction: column;
+            width: 100%;
+            input{
+                width: 50%;
+                padding: 10px;
+                margin: 10px;
+                font-size: 1.2rem;
+                border-radius: 5px;
+                border: 1px solid $secondary-color;
+                background: $main-color;
+                color: white;
+                text-align: center;
+                transition-duration: 0.4s;
+            }
+
+            input[type="submit"] {
+                padding: 10px 20px;
+                background: none;
+                color: white;
+                border: 2px solid $quaternary-color;
+                border-radius: 10px;
+                transition-duration: 0.4s;
+
+                &:hover {
+                    background: $quaternary-color;
+                    color: white;
+                    scale: 1.1;
+                }
+            }
+
+            textarea{
+                width: 80%;
+                padding: 10px;
+                margin: 10px;
+                border-radius: 5px;
+                border: 1px solid $secondary-color;
+                background: $main-color;
+                color: white;
+                text-align: left;
+                transition-duration: 0.4s;
+                max-width: 80%;
+                min-width: 30%;
+            }
+        }
     }
 
 }
@@ -736,7 +783,7 @@ body {
                 border-radius: 5px;
                 border: 1px solid $secondary-color;
                 background: $main-color;
-                color: $secondary-color;
+                color: white;
                 text-align: center;
                 transition-duration: 0.4s;
             }
