@@ -783,6 +783,48 @@ footer #logoutForm input:hover {
     position: fixed;
     width: 100vw;
   }
+  body .artwork-wrapper {
+    display: none;
+  }
+  body .main-container .all-users-container {
+    width: 95%;
+  }
+  body .main-container .all-users-container .all-users .user-overview {
+    min-width: auto;
+    margin: 20px;
+    max-width: none;
+  }
+  body .main-container .all-users-container h2 {
+    display: none;
+  }
+  body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
+    margin: 0px;
+  }
+  body .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post form input[type=submit] {
+    padding: 20px 40px;
+    text-align: center;
+  }
+  #welcomeText {
+    font-size: 1.5rem;
+  }
+  .fullview-writeup {
+    width: 95%;
+  }
+  .fullview-writeup .fullview-writeup-inner {
+    width: 100%;
+  }
+  .fullview-writeup .fullview-writeup-inner img {
+    width: 90%;
+  }
+  .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner {
+    margin: 0px;
+  }
+  .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner #createNewWriteup {
+    width: 100%;
+  }
+  .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post {
+    width: 95%;
+  }
   .main-container .main-content-container .main-cont-inner-wrapper .inner-inner .inner-inner-inner .create-new-post input {
     width: 100%;
   }

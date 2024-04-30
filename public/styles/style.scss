@@ -862,6 +862,63 @@ footer {
             width: 100vw;
         }
 
+        .artwork-wrapper{
+            display: none;
+        }
+
+        .main-container{
+            .all-users-container{
+
+                .all-users{
+
+                    .user-overview{
+                        min-width: auto;
+                        margin: 20px;
+                        max-width: none;
+                    }
+                }
+
+                h2{
+                    display: none;
+                }
+                width: 95%;
+            }
+
+
+            .main-content-container{
+                .main-cont-inner-wrapper{
+                    .inner-inner{
+                        .inner-inner-inner{
+                            margin: 0px;
+                            .create-new-post{
+                                form{
+                                    input[type="submit"]{
+                                        padding: 20px 40px;
+                                        text-align: center;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    #welcomeText {
+        font-size: 1.5rem;
+    }
+
+    .fullview-writeup{
+        width: 95%;
+        .fullview-writeup-inner{
+            width: 100%;
+
+            img{
+                width: 90%;
+            }
+        }
     }
 
     .main-container {
@@ -869,7 +926,12 @@ footer {
             .main-cont-inner-wrapper {
                 .inner-inner {
                     .inner-inner-inner {
+                        margin: 0px;
+                        #createNewWriteup{
+                            width: 100%;
+                        }
                         .create-new-post {
+                            width: 95%;
                             input {
                                 width: 100%;
                             }
