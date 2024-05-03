@@ -1,49 +1,56 @@
 <%- include('templates/head', {title: "Writeups" }) %>
-<body>
-    <%- include('templates/header') %>
-    <div class="main-container">
-        <% if(locals.post) { %>
-            <div class="main-fullview-container">
-                <div class="writeup-footer">
-                    <div class='backhometowriteups'>
-                        <a href="/writeups">Back to writeups</a>
-                    </div>
-                    <p>By: <%= locals.post.author %></p>
-                    <p>Posted on: <%= locals.post.post_date %></p>
-                    <% if(locals.session.username === locals.post.author) { %>
-                        <form action="/fullview" method="POST">
-                            <input type="hidden" name="del_post_id" value="<%= locals.post._id %>">
-                            <input type="submit" value="Delete">
-                        </form><br>
-                        <form action="/fullview" method="POST">
-                            <input type="hidden" name="edit_post_id" value="<%= locals.post._id %>">
-                            <input type="submit" value="Edit">
-                        </form>
-                    <% } %>
-                </div>
-                <div class="fullview-writeup">
-                    <div class="fullview-writeup-inner">
-                        <div class="artwork-wrapper">
-                            <pre id='artwork'></pre>
+
+    <body>
+        <%- include('templates/header') %>
+            <div class="main-container">
+                <% if(locals.post) { %>
+                    <div class="main-fullview-container">
+                        <div class="writeup-footer">
+                            <div class='backhometowriteups'>
+                                <a href="/writeups">Back to writeups</a>
+                            </div>
+                            <p>By: <%= locals.post.author %>
+                            </p>
+                            <p>Posted on: <%= locals.post.post_date %>
+                            </p>
+                            <% if(locals.session.username===locals.post.author) { %>
+                                <form action="/fullview" method="POST">
+                                    <input type="hidden" name="del_post_id" value="<%= locals.post._id %>">
+                                    <input type="submit" value="Delete">
+                                </form><br>
+                                <form action="/fullview" method="POST">
+                                    <input type="hidden" name="edit_post_id" value="<%= locals.post._id %>">
+                                    <input type="submit" value="Edit">
+                                </form>
+                                <% } %>
                         </div>
-                        <h2><%= locals.post.title %></h2>
-                        <!-- Replace all image URLs with <img> tags -->
-                        <% const contentWithImages = locals.post.content.replace(/(https?:\/\/[^\s]+(?:jpe?g|png|gif))/g, '<br><img src="$1" class="centered-image" width="40%" alt="Image">'); %>
-                        <!-- Output the content with images -->
-                        <%- contentWithImages.replace(/\n/g, '<br>') %>
+                        <div class="fullview-writeup">
+                            <div class="fullview-writeup-inner">
+                                <div class="artwork-wrapper">
+                                    <pre id='artwork'></pre>
+                                </div>
+                                <h2>
+                                    <%= locals.post.title %>
+                                </h2>
+                                <!-- Replace all image URLs with <img> tags -->
+                                <% const
+                                    contentWithImages=locals.post.content.replace(/(https?:\/\/[^\s]+(?:jpe?g|png|gif))/g, '<br><img src="$1" class="centered-image" width="40%" alt="Image">'
+                                    ); %>
+                                    <!-- Output the content with images -->
+                                    <p><%- contentWithImages.replace(/\n/g, '<br>' ) %></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <% } %>
             </div>
-        <% } %>
-    </div>
-</body>
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function () {
-                                const artwork = document.getElementById("artwork");
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const artwork = document.getElementById("artwork");
 
 
-                                // ASCII art
-                                const art1 = `
+            // ASCII art
+            const art1 = `
    _____    __  __   _____       _____  __   __   __   _______    __   __   
   / ___ \\ /\\  /\\  /\\/\\____\\    /\\_____\\/_/\\ /\\_\\ /\\_\\/\\_______)\\ /\\_\\ /_/\\  
  / /\\_/\\ \\\\ \\ \\/ / /\\/_ ( (   ( (_____/) ) \\ ( ( \\/_/\\(___  __\\/( ( (_) ) ) 
@@ -53,7 +60,7 @@
   \\ ____/ \\/__\\/__\\/   \\/____/ \\/_____/\\_\\/ \\/_/ \\/_/  /_/_/     \\/_/ \\_\/`;
 
 
-                                const art2 = `
+            const art2 = `
  _____      ______           _ _   _     
 |  _  |    |___  /          (_) | | |    
 | |/' |_  __  / /  ___ _ __  _| |_| |__  
@@ -61,7 +68,7 @@
 \\ |_/ />  <./ /__|  __/ | | | | |_| | | |
  \\___//_/\\_\\_____/\\___|_| |_|_|\\__|_| |_|`;
 
-                                const art3 = `
+            const art3 = `
 
 ________     ___    ___ ________  _______   ________   ___  _________  ___  ___     
 |\\   __  \\   |\\  \\  /  /|\\_____  \\|\\  ___ \\ |\\   ___  \\|\\  \\|\\___   ___\\\\  \\|\\  \\    
@@ -72,7 +79,7 @@ ________     ___    ___ ________  _______   ________   ___  _________  ___  ___
     \\|_______/__/ /\\ __\\    \\|_______|\\|_______|\\|__| \\|__|\\|__|    \\|__|  \\|__|\\|__|
              |__|/ \\|__|`;
 
-                                const art4 = `
+            const art4 = `
  ██████╗ ██╗  ██╗███████╗███████╗███╗   ██╗██╗████████╗██╗  ██╗
 ██╔═████╗╚██╗██╔╝╚══███╔╝██╔════╝████╗  ██║██║╚══██╔══╝██║  ██║
 ██║██╔██║ ╚███╔╝   ███╔╝ █████╗  ██╔██╗ ██║██║   ██║   ███████║
@@ -80,7 +87,7 @@ ________     ___    ___ ________  _______   ________   ___  _________  ___  ___
 ╚██████╔╝██╔╝ ██╗███████╗███████╗██║ ╚████║██║   ██║   ██║  ██║
  ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝`;
 
-                                const art5 = `
+            const art5 = `
     ▄   ▄▄▄▄▄▄   ▄███▄      ▄   ▄█    ▄▄▄▄▀ ▄  █ 
 ▀▄   █ ▀   ▄▄▀   █▀   ▀      █  ██ ▀▀▀ █   █   █ 
   █ ▀   ▄▀▀   ▄▀ ██▄▄    ██   █ ██     █   ██▀▀█ 
@@ -88,7 +95,7 @@ ________     ___    ___ ________  _______   ________   ___  _________  ___  ___
 █   ▀▄           ▀███▀   █  █ █  ▐   ▀        █  
  ▀                       █   ██              ▀   `;
 
-                                const art6 = `
+            const art6 = `
  :::::::  :::    ::: ::::::::: :::::::::: ::::    ::: ::::::::::: ::::::::::: :::    ::: 
 :+:   :+: :+:    :+:      :+:  :+:        :+:+:   :+:     :+:         :+:     :+:    :+: 
 +:+  :+:+  +:+  +:+      +:+   +:+        :+:+:+  +:+     +:+         +:+     +:+    +:+ 
@@ -98,7 +105,7 @@ ________     ___    ___ ________  _______   ________   ___  _________  ___  ___
  #######  ###    ### ######### ########## ###    #### ###########     ###     ###    ### 
 `;
 
-                                const art7 = `.         s                
+            const art7 = `.         s                
     .n~~%x.                     :~"""88hx.                               @88>      :8      .uef^"    
   x88X   888.      uL   ..    .~      ?888x                 u.    u.     %8P      .88    :d88E       
  X888X   8888L   .@88b  @88R  X       '8888k       .u     x@88k u@88c.    .      :888ooo \`888E       
@@ -114,54 +121,54 @@ X8888X   88888  '"Y888k/"*P     H8h    8888X    ud8888.  ^"8888""8888"  .@88u  -
                               \`888>    X888~                                                   @%    
                                '"88...x8""                                                   :"`;
 
-                                const art8 = `
+            const art8 = `
  _     _ ______ _______ __   _ _____ _______ _     _
   \\___/   ____/ |______ | \\  |   |      |    |_____|
  _/   \\_ /_____ |______ |  \\_| __|__    |    |     |
                                                     
 `;
 
-const art9 = `
+            const art9 = `
      _/              _/_/_/_/_/                      _/    _/      _/       
   _/  _/  _/    _/        _/      _/_/    _/_/_/        _/_/_/_/  _/_/_/    
  _/  _/    _/_/        _/      _/_/_/_/  _/    _/  _/    _/      _/    _/   
 _/  _/  _/    _/    _/        _/        _/    _/  _/    _/      _/    _/    
  _/    _/    _/  _/_/_/_/_/    _/_/_/  _/    _/  _/      _/_/  _/    _/`;
-                                const all_artworks = [
-                                    art1,
-                                    art2,
-                                    art3,
-                                    art4,
-                                    art5,
-                                    art6,
-                                    art7,
-                                    art8,
-                                    art9,
-                                ];
-                                let i = 0;
+            const all_artworks = [
+                art1,
+                art2,
+                art3,
+                art4,
+                art5,
+                art6,
+                art7,
+                art8,
+                art9,
+            ];
+            let i = 0;
 
-                                // Set default showing artwork
-                                artwork.innerText = all_artworks[6];
+            // Set default showing artwork
+            artwork.innerText = all_artworks[6];
 
-                                // Rotate artwork
-                                setInterval(() => {
-                                    artwork.innerText = all_artworks[i];
-                                    i = (i + 1) % all_artworks.length;
-                                }, 1000);
-                            });
-                        </script>
+            // Rotate artwork
+            setInterval(() => {
+                artwork.innerText = all_artworks[i];
+                i = (i + 1) % all_artworks.length;
+            }, 1000);
+        });
+    </script>
 
-                        <script>
-                            // Give confirmation before deleting a post
-                            const deleteForm = document.querySelector('form');
-                            if (deleteForm) {
-                                deleteForm.addEventListener('submit', function (e) {
-                                    const confirmDelete = confirm('Are you sure you want to delete this post?');
-                                    if (!confirmDelete) {
-                                        e.preventDefault();
-                                    }
-                                });
-                            }
-                        </script>
+    <script>
+        // Give confirmation before deleting a post
+        const deleteForm = document.querySelector('form');
+        if (deleteForm) {
+            deleteForm.addEventListener('submit', function (e) {
+                const confirmDelete = confirm('Are you sure you want to delete this post?');
+                if (!confirmDelete) {
+                    e.preventDefault();
+                }
+            });
+        }
+    </script>
 
     <%- include('templates/footer.ejs') %>

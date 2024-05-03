@@ -162,7 +162,12 @@ app.post("/fullview", async (req, res) => {
         // 
         const post_id = req.body.post_id;
 
-        const edit_title = req.body.edit_title;
+        let edit_title = req.body.edit_title;
+        // If edit_title is empty, set it to the original title
+        if(!edit_title){
+            edit_title = post.title;
+        }
+
         const edit_content = req.body.edit_content;
         console.log(`Edit title: ${edit_title}`);
         console.log(`Edit content: ${edit_content}`);

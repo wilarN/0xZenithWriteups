@@ -179,12 +179,18 @@ img {
   transition-duration: 0.4s;
 }
 .fullview-writeup .fullview-writeup-inner {
+  width: 90%;
+  display: inline-block;
+  max-width: 90%;
+  text-wrap: wrap;
   padding: 30px;
   color: white;
   font-size: 1.2rem;
 }
 .fullview-writeup .fullview-writeup-inner h2,
 .fullview-writeup .fullview-writeup-inner p {
+  width: 100%;
+  overflow-wrap: break-word;
   color: white;
 }
 .fullview-writeup .fullview-writeup-inner h2 {
@@ -809,9 +815,10 @@ footer #logoutForm input:hover {
   }
   .fullview-writeup {
     width: 95%;
+    text-wrap: wrap;
   }
   .fullview-writeup .fullview-writeup-inner {
-    width: 100%;
+    width: 50%;
   }
   .fullview-writeup .fullview-writeup-inner img {
     width: 90%;
