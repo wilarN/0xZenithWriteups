@@ -550,7 +550,7 @@ body .main-container .all-users-container .all-users .user-overview .more-inform
   opacity: 0;
   transition-duration: 0.2s;
 }
-body .main-container .all-users-container .all-users .user-overview .more-information h2 {
+body .main-container .all-users-container .all-users .user-overview .more-information a {
   display: flex;
   justify-content: center;
   align-items: center;

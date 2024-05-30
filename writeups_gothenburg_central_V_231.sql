@@ -9,7 +9,7 @@
 
 
 -- Dumping database structure for writeups_gothenburg_central_v_231
-CREATE DATABASE IF NOT EXISTS `writeups_gothenburg_central_v_231` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `writeups_gothenburg_central_v_231` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `writeups_gothenburg_central_v_231`;
 
 -- Dumping structure for table writeups_gothenburg_central_v_231.blogs

@@ -605,7 +605,7 @@ body {
                         opacity: 0;
                         transition-duration: 0.2s;
 
-                        h2{
+                        a{
                             @include flexCenter;
                             background: $secondary-color;
                             border: 2px solid white;

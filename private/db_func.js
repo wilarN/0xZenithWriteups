@@ -10,7 +10,7 @@ class db {
             host: 'localhost',
             user: 'root',
             password: '',
-            database: 'writeups_gothenburg_central_V_231',
+            database: 'writeups_gothenburg_central_v_231',
             waitForConnections: true,
             connectionLimit: 10,
             queueLimit: 0

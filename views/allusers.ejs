@@ -17,17 +17,7 @@
                                     </p>
                                     <div class="more-information">
                                         <p>
-                                            <!-- Users writeups -->
-                                            <% if(locals.all_writeups){ %>
-                                                <% for(let j=0; j < all_writeups.length; j++) { %>
-                                                    <% if(all_writeups[j].author==users[i].username) { %>
-                                                        <h2>
-                                                            <%= all_writeups[j].title %>
-                                                        </h2>
-                                                        <br>
-                                                        <% } %>
-                                                            <% } %>
-                                                                <% } %>
+
                                         </p>
                                         <p>
                                             Member since: <%= users[i].reg_date %>

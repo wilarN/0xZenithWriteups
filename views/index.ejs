@@ -38,11 +38,11 @@
                                 <pre id='artwork'></pre>
                                 <h1>Sign Up</h1>
                                 <form action="/signup" method="POST">
-                                    <input type="text" name="username" autocomplete='off' autofocus
+                                    <input type="text" minlength='4' maxlength='30' name="username" autocomplete='off' autofocus
                                         placeholder="Username" required>
-                                    <input type="password" name="password" placeholder="Password" autocomplete='off'
+                                    <input type="password" minlength='8' maxlength='20' name="password" placeholder="Password" autocomplete='off'
                                         required>
-                                    <input type="password" name="confirmPassword" placeholder="Confirm Password"
+                                    <input type="password" minlength='8' maxlength='20' name="confirmPassword" placeholder="Confirm Password"
                                         autocomplete='off' required>
                                     <span id='conf-pass-match'></span>
                                     <input type="submit" value="Sign Up">
